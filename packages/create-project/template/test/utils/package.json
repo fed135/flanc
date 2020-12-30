@@ -1,0 +1,13 @@
+{
+  "name": "@<project_name>/test-utils",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Utils for testing",
+  "devDependencies": {
+    "@<project_name>/core-util": "0.0.0",
+    "@types/jest": "^24.0.19",
+    "config": "^3.3.0",
+    "jest": "^24.9.0",
+    "ts-jest": "^24.0.2"
+  }
+}

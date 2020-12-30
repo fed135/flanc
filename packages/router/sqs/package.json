@@ -1,0 +1,12 @@
+{
+    "name": "@flanc/router-sqs",
+    "version": "0.0.0",
+    "private": true,
+    "description": "The sqs router for flanc apis",
+    "dependencies": {
+        "aws-sdk": "^2.724.0",
+        "config": "^3.3.0",
+        "flanc": "^0.0.0",
+        "uuid": "^8.3.0"
+    }
+}

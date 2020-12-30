@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "alwaysStrict": false,
+    "checkJs": false,
+    "esModuleInterop": true,
+    "module": "commonjs",
+    "noEmit": true,
+    "resolveJsonModule": true,
+    "target": "ES2020",
+    "types": [
+      "jest",
+      "node"
+    ]
+  },
+  "exclude": [
+    "node_modules"
+  ],
+  "include": [
+    "index.js",
+    "<project_name>.d.ts",
+    "packages/**/*.ts",
+    "test/**/*.ts"
+  ]
+}
+  

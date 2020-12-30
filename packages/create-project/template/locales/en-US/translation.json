@@ -1,0 +1,7 @@
+{
+  "bank-linking": {
+    "flinks-connect": {
+      "funding-account-title": "Which account do you want to use to transfer money to your <project_name> goals?"
+    }
+  }
+}

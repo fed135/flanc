@@ -1,0 +1,11 @@
+{
+    "name": "@flanc/router-common",
+    "version": "0.0.1",
+    "description": "Common route utils and function for routers",
+    "dependencies": {
+        "flanc": "0.0.0",
+        "config": "^3.3.0",
+        "jsonwebtoken": "^8.5.1",
+        "swagger-route-validator": "^1.0.2"
+    }
+}

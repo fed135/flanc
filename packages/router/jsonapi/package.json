@@ -1,0 +1,17 @@
+{
+    "name": "@flanc/router-json",
+    "version": "0.0.1",
+    "description": "The openapi router for flanc apis",
+    "dependencies": {
+        "config": "^3.3.0",
+        "express": "^4.17.1",
+        "express-fileupload": "^1.1.9",
+        "express-xml-bodyparser": "^0.3.0",
+        "flanc": "^6.11.0",
+        "swagger-route-validator": "^1.0.2"
+    },
+    "devDependencies": {
+        "@types/express-fileupload": "^1.1.3",
+        "@types/express-xml-bodyparser": "^0.3.2"
+    }
+}
