@@ -1,0 +1,162 @@
+# FLANC
+
+A semi-opinionated API framework for domain-driven monorepos.
+
+## Key features
+
+- Typescript
+- Linting
+- Test suites
+- Core utils for async, http, caching, dates, encryption, etc.
+- Easy integration with monitoring tools
+- Support for multiple protocols (JSON-API, GraphQL, 
+- Kubernetes-ready
+- Built-in api documentation
+
+## Getting started
+
+### Installation
+
+To get started, all you need to do is install the CLI package and run the create-app script.
+
+```bash
+npm install -g @flanc/create-app
+create-flanc-app my-awesome-api
+```
+
+This will clone the template and tools, making you ready to start coding logic and not have to worry about project setup.
+
+To launch your API, just run:
+
+```bash
+yarn start
+```
+
+Your healthcheck route will be [localhost:9001/healthcheck](http://localhost:9001/healthcheck)
+
+### Creating a new endpoint
+
+FLANC does not have any routers out of the box, which means that you will have to install some extra packages, based on what protocols you want to support.
+
+Here's a list of routers that you can pick from:
+
+| [JSON-API](https://npmjs.org) |
+| [GraphQL](https://npmjs.org) |
+| [SQS](https://npmjs.org) |
+| [WebSocket](https://npmjs.org) |
+
+For example, if you want to create a new JSON endpoint, you would install the package at the root level of the project
+
+```bash
+yarn add @flanc/router-jsonapi
+```
+
+Then, in the `server.ts` file at the root of the project you will need to import and load your router
+
+```typescript
+import { createServer } from 'flanc/server';
+import { setup as JSONRouter } from '@flanc/router-jsonapi';
+
+const server = createServer();
+
+/**
+ * Load subrouters here
+ */
+server.router(JSONRouter);
+
+server.registry('./packages/domain/registry');
+server.start();
+
+export default server;
+```
+
+Now next time that you launch the app, a new documentation route should be available: [localhost:9001/docs/jsonapi](http://localhost:9001/docs/jsonapi)
+
+Now to make use of this new router, we will create a new domain file
+
+```typescript
+import { register } from '@flanc/router-jsonapi';
+
+register({
+  path: '/hello-world/:username',
+  method: 'get',
+  description: 'Test route',
+  operationId: 'helloWorld',
+  clientCache: 604800,
+  parameters: [
+    { 
+      name: 'username',
+      in: 'path',
+      type: 'string',
+    }
+  ],
+  middlewares: [],
+  tags: ['test'],
+  resolver: (context: Context) => {
+    return `Hello ${context.params.username}!`;
+  },
+});
+```
+
+After restarting your server, your JSON-API documentation page should show your new route, which you will be able to call at [localhost:9001/jsonapi/hello-world/john](http://localhost:9001/jsonapi/hello-world/john)
+
+### Custom responses
+
+In addition to the built-in headers, like Cache-Control, Content-Type and x-request-id, you can return specific headers or status codes by leveraging the `res` property of contexts.
+
+```typescript
+function handleCustomResponse(context: Context) {
+  context.res.status(203);
+  context.res.headers['x-custom-header'] = 'Something unique';
+  return 'Nothing changed';
+}
+```
+
+
+### Error management
+
+All routers should handle FLANC Errors thrown anywhere in the code.
+
+```typescript
+import { NotFound } from 'flanc/errors';
+
+function handleRequestNotFound(context: Context) {
+  throw NotFound('Could not find what you were looking for');
+}
+```
+
+
+You may want to catch them to modify the error content or to gracefully degrade the experience for your user.
+
+
+## Why is this important ?
+
+This project aims to address a number of of pain-points that affect companies of all sizes.
+
+### Monorepos
+
+Instead of spreading your resources thin across a sea of micro-services and adding massive maintenance overhead monorepos offer a clear way to organise code and dependencies without creating bottlenecks during development.
+
+### Domain-driven design
+
+A domain-driven design is a seperation of concerns in terms of app functionality rather than grouping files by type (ex: putting all controllers together). What this allows is a more intuitive approach to development where file changes for a given feature are all in one place- and should not affect other features.
+
+Combining monorepos with the domain-driven design approach gives us a platform that is extremely flexible and scalable in terms of functionality and team composition.
+
+### Semi-opinionated ?
+
+FLANC proposes a rigid folder structure, where there is a clear split between domain and resource packages, a guide for package morphology, batteries-included routing, documentation, contexts and tests.
+Beyond that, you are free to structure your code and logic to your liking, import the libraries that you are used to work with, your databases, ORMs, etc.
+
+### How experimental is this ?
+
+The concept has been battle-tested in multiple scenarios, from startups to Fortune 500 companies, all with great success. What's still to be refined is the actual implementation, which had to be redone from scratch.
+
+## Contributing
+
+Please do! This project is all about facilitating collaboration on complex projects and we intend to set the example ourselves.
+If you want to contribute, feel free to ping @fed135.
+
+## License
+
+Apache 2.0 - 2021
