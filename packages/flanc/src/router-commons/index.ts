@@ -1,8 +1,8 @@
-import { ApiError } from '../../errors';
+import { ApiError } from '../errors';
 import monitoring from './middleware/monitoring';
 import { render } from './renderer';
 import requestValidator from './middleware/request-validation';
-import { to } from '../../async';
+import { to } from '../async';
 
 function link(resolver, model, clientCache, specifications: RouterSpecifications) {
   return async (req) => {

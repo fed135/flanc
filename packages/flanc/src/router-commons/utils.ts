@@ -1,4 +1,4 @@
-import { BadRequest } from '../../errors';
+import { BadRequest } from '../errors';
 import config from 'config';
 
 function guardAgainstForbiddenIncludePattern(includeVal: string[], includeParam?: Serializable, context?: Context) {
@@ -10,7 +10,7 @@ function guardAgainstForbiddenIncludePattern(includeVal: string[], includeParam?
   const whitelist = includeRules.whitelist || [];
   const blacklist = includeRules.blacklist || [];
   let maxDepth = includeRules['max-depth'];
-  if (maxDepth === null || maxDepth === undefined) maxDepth = config.rest.maxRelationshipDepth;
+  if (maxDepth === null || maxDepth === undefined) maxDepth = config.routers.json.maxRelationshipDepth;
 
   for (let i = 0; i < includeVal.length; i++) {
     const rejectReason = (

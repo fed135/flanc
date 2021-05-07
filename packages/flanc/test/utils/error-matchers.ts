@@ -1,4 +1,4 @@
-import { ApiError } from 'flanc/errors';
+import { ApiError } from '../../src/errors';
 
 interface ExpectedApiError {
   message: string
@@ -27,14 +27,14 @@ const assertApiError = (error: ApiError, expected: ExpectedApiError): jest.Custo
   if (!isExpectedErrorType) {
     return {
       pass: false,
-      message: () => `expected <project_name>ApiError<${expected.title}> with message "${expected.message}", received ${JSON.stringify(error)}.`,
+      message: () => `expected ApiError<${expected.title}> with message "${expected.message}", received ${JSON.stringify(error)}.`,
     };
   }
 
   if (error.message !== expected.message) {
     return {
       pass: false,
-      message: () => `expected <project_name>ApiError<${expected.title}> with message "${expected.message}", received unexpected error message: \`${error.message}\`.`,
+      message: () => `expected ApiError<${expected.title}> with message "${expected.message}", received unexpected error message: \`${error.message}\`.`,
     };
   }
 

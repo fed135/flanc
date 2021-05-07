@@ -10,7 +10,7 @@ const server = createServer();
 /**
  * Set app monitoring
  */
-//server.monitoring();
+// server.monitoring();
 
 /**
  * Load subrouters
@@ -26,7 +26,7 @@ server.registry('./packages/domain/registry');
 /**
  * Set app middleware
  */
-//server.middleware()
+// server.middleware()
 
 /**
  * Start the server

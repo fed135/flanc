@@ -16,17 +16,17 @@ function i18nextInit() {
     .use(i18nextBackend)
     .init({
       backend: {
-        loadPath: config.i18next.translationFilePath,
+        loadPath: config.i18next?.translationFilePath,
       },
-      fallbackLng: 'en-US',
-      lng: 'en-US',
-      preload: ['en-US', 'fr-CA'],
-      whitelist: ['en-US', 'fr-CA'],
+      fallbackLng: config.i18next?.defaultLocale || 'en-US',
+      lng: config.i18next?.defaultLocale || 'en-US',
+      preload: [config.i18next?.defaultLocale || 'en-US'],
+      whitelist: config.i18next?.allowedLocales || [config.i18next?.defaultLocale || 'en-US'],
     }, errorCallback);
 }
 
 function localize(key, locale) {
-  return i18next.t(key, { lng: locale ?? 'en-US' });
+  return i18next.t(key, { lng: locale ?? (config.i18next?.defaultLocale || 'en-US') });
 }
 
 function isCurrencyWithNoDecimals(currency: string) {

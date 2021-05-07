@@ -159,4 +159,4 @@ If you want to contribute, feel free to ping @fed135.
 
 ## License
 
-Apache 2.0 - 2021
+Apache-2.0 - 2021

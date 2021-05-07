@@ -27,7 +27,7 @@ function shutdownRequest(signal: string, server: AppServer, onShutdown: (server:
 
 export default function gracefulShutdown(app: ExpressAppServer, onShutdown: (server: AppServer) => any) {
   // Modern http compatibility layer
-  
+
   app.server.close = app.server.close || app.server.stop;
   process.on('SIGTERM', shutdownRequest('SIGTERM', app.server, onShutdown));
   process.on('SIGINT', shutdownRequest('SIGINT', app.server, onShutdown));

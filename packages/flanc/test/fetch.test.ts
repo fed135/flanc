@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { fetch } from '../fetch';
+import { fetch } from '../src/fetch';
 import { generateRequestContext } from './express-utils';
 
 jest.mock('axios', () => ({

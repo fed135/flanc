@@ -51,7 +51,7 @@ export function createServer() {
   app._routers = [];
   app._registryLocation;
   app._extraMiddleware = [];
-  
+
   return {
     app: () => app,
     registry: (path: string) => app._registryLocation = path,
@@ -67,14 +67,14 @@ export function createServer() {
         .then(() => {
           applyPlugins(app);
           require(app._registryLocation);
-          app._extraMiddleware.forEach((module) => app.use(module))
+          app._extraMiddleware.forEach((module) => app.use(module));
           healthcheck(app);
         })
-        .then(() => Promise.all(app._routers.map(router => router.start())))
+        .then(() => Promise.all(app._routers.map((router) => router.start())))
         .then(() => {
-          loadErrorHandlers(app)
+          loadErrorHandlers(app);
           return listen(app, config);
-        })
+        });
     },
     stop: () => {
 

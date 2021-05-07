@@ -1,4 +1,4 @@
-import { getYearsSince } from '../dates';
+import { getYearsSince } from '../src/dates';
 
 describe('[Packages | Dates] interacting with dates utils', () => {
   describe('getYearsSince', () => {

@@ -1,4 +1,4 @@
-import { latinize } from '../formatting';
+import { latinize } from '../src/formatting';
 
 describe('[Packages | Core-util | Formatting] interacting with latinize', () => {
   describe('given a string with accents and emojis', () => {

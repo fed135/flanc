@@ -1,4 +1,4 @@
-import { to } from '../../async';
+import { to } from '../async';
 
 const asJsonApiObject = (data, model, context) => {
   const fieldList = context.params[`fields[${model.type}]`] ? context.params[`fields[${model.type}]`].split(',') : Object.keys(model.attributes);

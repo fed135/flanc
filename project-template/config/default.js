@@ -10,8 +10,8 @@ module.exports = {
     region: process.env.AWS_REGION,
     sqs: {
       batchMessageLimit: 10,
-      queues: {}
-    }
+      queues: {},
+    },
   },
   debug: {
     stackSize: 4,
@@ -33,7 +33,7 @@ module.exports = {
     },
     json: {
       maxRelationshipDepth: 4,
-    }
+    },
   },
   server: {
     host: 'localhost:9001',
@@ -44,5 +44,5 @@ module.exports = {
   shutdown: {
     appKill: 1000,
     serverClose: 100,
-  }
+  },
 };

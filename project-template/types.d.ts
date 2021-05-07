@@ -27,11 +27,13 @@ type ConfigDefinition = {
   }
   i18next: {
     translationFilePath: string
+    defaultLocale: string
+    allowedLocales: string[]
   }
   routers: {
     common: {
       clientCacheTimeout: number
-    },
+    }
     json: {
       maxRelationshipDepth: number
     }

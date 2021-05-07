@@ -1,5 +1,5 @@
-import { createContext } from '../context';
-import { ExpressRequest } from '../express-types';
+import { createContext } from '../src/context';
+import { ExpressRequest } from '../src/express-types';
 import { IncomingMessage } from 'http';
 import { Socket } from 'net';
 

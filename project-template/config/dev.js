@@ -6,5 +6,5 @@ module.exports = {
   server: {
     host: 'my-dev-service-direct-url.my-domain.com',
     https: false,
-  }
+  },
 };

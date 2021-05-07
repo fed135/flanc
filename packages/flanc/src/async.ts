@@ -1,9 +1,7 @@
-export function mute(resolver: (params: any) => any) {
-  return (params: any) => {
-    const handle = Promise.resolve();
-    process.nextTick(() => resolver(params).catch((): void => undefined));
-    return handle;
-  };
+export function mute(resolver: (args: any) => any, params: any[]): Promise<void> {
+  const handle = Promise.resolve();
+  process.nextTick(() => resolver(params).catch((): void => undefined));
+  return handle;
 }
 
 export function deferred<T>() {
@@ -17,14 +15,14 @@ export function deferred<T>() {
   return { promise, resolve, reject };
 }
 
-export function to<T = any>(promise: Promise<T>): Promise<[null, T] | [any, null]> {
+export function to<T = any>(promise: Promise<T>): Promise<[null, T] | [any, null?]> {
   return promise
     .then((data) => [null, data] as [null, T])
-    .catch((err) => [err, null] as [any, null]);
+    .catch((err) => [err] as [any]);
 }
 
-export function safe(fn: (args?: any) => any, args: Serializable[]) {
-  return new Promise((res) => res(fn(...args)));
+export function safe<T = any>(fn: (args?: any) => T, params: Serializable[]): Promise<T> {
+  return new Promise((res) => res(fn(...params)));
 }
 
 export function sequence<T, K>(array: Array<K>, operation: (item: K, index: number) => Promise<T>): Promise<Array<T>> {

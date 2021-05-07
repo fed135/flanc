@@ -98,7 +98,7 @@ function poll(queue: string): Promise<any> {
               const operationPromise = Promise.resolve(event.resolver(context))
                 .then((data) => resolve({ data, context }))
                 .catch((error) => reject({ message: `Error during SQS ${messageOperationId}: ${error} ${error.stack}`, context }));
-          
+
               modules?.newrelic?.startWebTransaction(`SQS ${messageOperationId}`, () => operationPromise);
             }
           });

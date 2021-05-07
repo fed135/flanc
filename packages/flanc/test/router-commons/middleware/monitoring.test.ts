@@ -1,6 +1,6 @@
-import { generateExpressRequest } from '../../../../test/express-utils';
-import monitoring from '../../middleware/monitoring';
-import { modules } from '../../../../monitoring';
+import { generateExpressRequest } from '../../express-utils';
+import monitoring from '../../../src/router-commons/middleware/monitoring';
+import { modules } from '../../../src/monitoring';
 
 let setControllerNameMock;
 

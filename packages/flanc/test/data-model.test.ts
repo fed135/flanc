@@ -1,4 +1,4 @@
-import { DataModel, sanitize } from '../data-model';
+import { DataModel, sanitize } from '../src/data-model';
 
 describe('[Packages | Core-util | Data-Model] interacting with data model utils', () => {
   describe('given an invalid model with no type configuration', () => {

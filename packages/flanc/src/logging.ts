@@ -1,6 +1,4 @@
-const enabled = (
-  (process.env.NODE_DEBUG || '').indexOf('API') > -1 ||
-) && process.env.TEST_MODE !== 'test';
+const enabled = (process.env.NODE_DEBUG || '').indexOf('FLANC') > -1 && process.env.TEST_MODE !== 'test';
 const pid = process.pid;
 
 function print(namespace: string, level: string) {

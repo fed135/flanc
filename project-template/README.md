@@ -21,7 +21,7 @@ yarn
 
 ## Start
 
-To enable logs, use the standard `NODE_DEBUG` flag with the value `<project_name>`
+To enable logs, use the standard `NODE_DEBUG` flag with the value `FLANC`
 
 You'll also need to point to a Mongo server process with either a 'staging' or a 'prod' db.
 These can also be loaded through `.env` files.

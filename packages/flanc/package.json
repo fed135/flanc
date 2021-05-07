@@ -2,6 +2,14 @@
     "name": "flanc",
     "version": "0.0.1",
     "description": "The core engine and utils for flanc apis",
+    "license": "Apache-2.0",
+    "keywords": [
+        "router",
+        "framework",
+        "api",
+        "openapi",
+        "domain"
+    ],
     "dependencies": {
         "axios": "^0.21.1",
         "config": "^3.3.0",
@@ -24,9 +32,34 @@
     },
     "typings": "types.d.ts",
     "scripts": {
-        "build": "tsc --project ../../tsconfig.json --outDir bin",
-        "test": "ts-jest ."
+        "build": "tsc",
+        "test": "TEST_MODE=test jest ./test/*"
     },
     "main": "./bin/server",
-    "files": ["./bin"]
+    "files": ["./bin"],
+    "homepage": "https://github.com/fed135/flanc",
+  "contributors": [
+    "frederic charette <fredericcharette@gmail.com>"
+  ],
+  "bugs": {
+    "url": "https://github.com/fed135/flanc/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@github.com/fed135/flanc.js.git",
+    "directory": "packages/flanc"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "globals": {
+      "ts-jest": {
+        "diagnostics": false,
+        "isolatedModules": true
+      }
+    },
+    "setupFilesAfterEnv": [
+        "<rootDir>/test/utils/error-matchers.ts"
+    ]
+  }
 }

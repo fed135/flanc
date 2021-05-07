@@ -1,4 +1,4 @@
-import { deferred, sequence, to } from '../async';
+import { deferred, sequence, to } from '../src/async';
 
 describe('[Packages | Core-util | Async] to', () => {
   test('to should handle resolving promises', () => {

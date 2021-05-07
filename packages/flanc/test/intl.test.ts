@@ -1,4 +1,4 @@
-import { finances } from '../intl';
+import { finances } from '../src/intl';
 
 describe('[Packages | Core-util | Intl] interacting with int utils', () => {
   describe('using finances functions', () => {

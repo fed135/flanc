@@ -15,23 +15,23 @@ type AttributeParams = {
     items?: AttributeParams
     description?: string
   };
-  
+
   type SerializableParams = { [key: string]: Serializable };
-  
+
   interface HtmlRoute extends Route {
     method: 'get' | 'post'
   }
-  
+
   interface JsonApiRoute extends Route {
     method: HttpMethods
   }
-  
+
   interface SqsRoute extends Route {
     method: 'sqs'
   }
-  
+
   type HttpMethods = 'get' | 'post' | 'patch' | 'delete' | 'put';
-  
+
   type RequestOptions = {
     headers?: { [key: string]: string }
     method?: HttpMethods
@@ -41,13 +41,13 @@ type AttributeParams = {
     body?: Serializable
     responseType?: | 'arraybuffer' | 'blob' | 'document' | 'json' | 'text' | 'stream'
   };
-  
+
   type ModelArguments<TParams = any> = {
     context: Context
     params: TParams
     [key: string]: any
   };
-  
+
   type RelationshipParams = {
     resolver: (
       src: Serializable,
@@ -55,7 +55,7 @@ type AttributeParams = {
     ) => Serializable
     model: Serializable
   };
-  
+
   type Context = {
     id: string
     ip: string
@@ -71,7 +71,7 @@ type AttributeParams = {
     errors: any[]
     operationId?: string
   };
-  
+
   type UserToken = {
     id: string | null
     token: string
@@ -84,12 +84,12 @@ type AttributeParams = {
     attributes: { [key: string]: AttributeParams }
     relationships?: { [relationship: string]: RelationshipParams }
   }
-  
+
   type OpenApiEntityIdentifier = {
     id: string
     type: string
   };
-  
+
   interface OpenApiEntity extends OpenApiEntityIdentifier {
     attributes: {
       [attribute: string]: Serializable
@@ -101,7 +101,7 @@ type AttributeParams = {
     }
     meta?: Serializable
   }
-  
+
   interface JsonApiResponse<T = {}> {
     data?: T | OpenApiEntity | OpenApiEntity[]
     included?: OpenApiEntity[]
@@ -111,11 +111,11 @@ type AttributeParams = {
       [key: string]: Serializable
     }
   }
-  
+
   interface GenericMiddleware {
     (req: any, res: any, next: () => any): void
   }
-  
+
   type SqsOptions = {
     forceDelete?: boolean
     pollerType?: 'parallel' | 'sequential'
@@ -123,7 +123,7 @@ type AttributeParams = {
     maxNumberOfMessages?: number
     visibilityTimeout?: number
   }
-  
+
   interface Route {
     path: string
     method: string
@@ -141,18 +141,18 @@ type AttributeParams = {
       default: Serializable
     }
   }
-  
+
   interface RouterSpecifications {
     formatError: (error: any) => any
     formatResponse: (error: any) => any
     responseHeaders: Serializable
     supportedMethods: string[]
   }
-  
+
   interface HtmlRoute extends Route {}
   interface JsonApiRoute extends Route {}
   interface SqsRoute extends Route {}
-  
+
   type ApiError = {
     code: string
     details?: Serializable
@@ -169,7 +169,7 @@ type AttributeParams = {
     status: number
     title: string
   };
-  
+
   type ApiResponse = {
     status: string
     contextId: string

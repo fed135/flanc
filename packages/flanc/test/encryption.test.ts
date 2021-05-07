@@ -1,4 +1,4 @@
-import { Encryption } from '../encryption';
+import { Encryption } from '../src/encryption';
 
 const text = 'some text';
 const encrypted = 'encrypted';

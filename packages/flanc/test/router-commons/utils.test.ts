@@ -1,4 +1,4 @@
-import { path } from '../utils';
+import { path } from '../../src/router-commons/utils';
 
 describe('[Packages | Router | JSON-API] interacting with the json api utils', () => {
   describe('given include params config with a set depth limit of 1', () => {

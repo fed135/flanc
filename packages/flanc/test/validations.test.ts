@@ -1,12 +1,8 @@
 import { createHmac } from 'crypto';
 import { generateRequestContext } from './express-utils';
-import { guards, validations } from '../validations';
+import { guards, validations } from '../src/validations';
 
 const context = generateRequestContext();
-const userLegacyId = '111111111111111111111111';
-const userId = '11111111-1111-1111-1111-111111111111';
-const contextWithLegacyUser = generateRequestContext(undefined, { legacyId: userLegacyId });
-const contextWithUser = generateRequestContext(undefined, { id: userId });
 
 const payload = Buffer.from(JSON.stringify({ someJsPayload: 'Very nice payload indeed' })).toString('base64');
 const key = 'test-key-so-strong';

@@ -6,5 +6,5 @@ module.exports = {
   server: {
     host: 'my-qa-service-direct-url.my-domain.com',
     https: false,
-  }
+  },
 };
