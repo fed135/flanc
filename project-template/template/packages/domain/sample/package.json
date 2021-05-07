@@ -1,0 +1,9 @@
+{
+  "name": "@<project_name>/domain-sample",
+  "version": "0.0.0",
+  "description": "Sample domain",
+  "private": true,
+  "dependencies": {
+      "@flanc/router-json": "^0.0.1"
+  }
+}

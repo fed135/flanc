@@ -1,0 +1,38 @@
+name: <project_name> CI Quality checks
+
+on:
+  push:
+    branches:
+      - '**'
+      - '!master'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Use Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: '14.x'
+    - uses: actions/cache@v2
+      with:
+        path: '**/node_modules'
+        key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+    - name: install
+      env:
+        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        CI: true
+      run: yarn --ignore-engines --silent --non-interactive
+    - name: lint
+      env:
+        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        CI: true
+      run: yarn lint
+    - name: unit tests
+      env:
+        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        CI: true
+      run: yarn test

@@ -1,0 +1,17 @@
+{
+    "name": "@flanc/router-html",
+    "version": "0.0.1",
+    "description": "The html router for the flanc apis",
+    "dependencies": {
+        "config": "^3.3.0",
+        "flanc": "^0.0.1"
+    },
+    "devDependencies": {
+        "typescript": "^4.2.4"
+    },
+    "scripts": {
+        "build": "tsc --project ../../tsconfig.json --outDir bin"
+    },
+    "main": "./bin/index",
+    "files": ["./bin"]
+}

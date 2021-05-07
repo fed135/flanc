@@ -1,0 +1,52 @@
+{
+    "name": "flanc-project",
+    "version": "0.0.0",
+    "description": "Website api",
+    "private": true,
+    "workspaces": [
+      "packages/*",
+      "packages/router/*"
+    ],
+    "engines": {
+      "node": ">=14"
+    },
+    "scripts": {
+      "lint": "eslint --ext .ts --ext .js .",
+      "lint:fix": "eslint --ext .ts --ext .js . --fix",
+      "test": "yarn workspaces run test"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/fed135/flanc.git"
+    },
+    "husky": {
+      "hooks": {
+        "pre-push": "yarn lint"
+      }
+    },
+    "typings": "index.d.ts",
+    "author": "Frederic Charette <fredericcharette@gmail.com>",
+    "license": "Apache 2.0",
+    "bugs": {
+      "url": "https://github.com/fed135/flanc/issues"
+    },
+    "homepage": "https://github.com/fed135/flanc#readme",
+    "devDependencies": {
+      "@types/express": "^4.17.2",
+      "@types/jest": "^26.0.0",
+      "@types/node": "^15.0.0",
+      "@types/stoppable": "^1.1.0",
+      "@types/supertest": "^2.0.10",
+      "@types/uuid": "^8.3.0",
+      "@typescript-eslint/eslint-plugin": "^4.22.0",
+      "@typescript-eslint/parser": "^4.22.0",
+      "eslint": "^7.25.0",
+      "eslint-config-airbnb-base": "^14.2.0",
+      "eslint-plugin-import": "^2.22.0",
+      "eslint-plugin-jest": "^24.3.0",
+      "husky": "^6.0.0",
+      "ts-node": "^9.1.1",
+      "typescript": "^4.2.4"
+    }
+  }
+  

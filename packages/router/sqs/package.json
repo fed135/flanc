@@ -1,0 +1,20 @@
+{
+    "name": "@flanc/router-sqs",
+    "version": "0.0.0",
+    "private": true,
+    "description": "The sqs router for flanc apis",
+    "dependencies": {
+        "aws-sdk": "^2.902.0",
+        "config": "^3.3.0",
+        "flanc": "^0.0.1",
+        "uuid": "^8.3.0"
+    },
+    "devDependencies": {
+        "typescript": "^4.2.4"
+    },
+    "scripts": {
+        "build": "tsc --project ../../tsconfig.json --outDir bin"
+    },
+    "main": "./bin/index",
+    "files": ["./bin"]
+}

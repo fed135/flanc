@@ -1,0 +1,20 @@
+{
+    "name": "@flanc/router-graphql",
+    "version": "0.0.1",
+    "description": "The graphql router for flanc apis",
+    "dependencies": {
+        "apollo-server-express": "^2.24.0",
+        "config": "^3.3.0",
+        "express": "^4.17.1",
+        "flanc": "^0.0.1",
+        "graphql": "^15.5.0"
+    },
+    "devDependencies": {
+        "typescript": "^4.2.4"
+    },
+    "scripts": {
+        "build": "tsc --project ../../tsconfig.json --outDir bin"
+    },
+    "main": "./bin/index",
+    "files": ["./bin"]
+}
