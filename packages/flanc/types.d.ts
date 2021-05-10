@@ -175,7 +175,65 @@ type AttributeParams = {
     contextId: string
     [key: string]: any
   };
+  
+  interface ConfigDefinition {
+    auth: {
+      jwtSecret: string
+      expiresAt: number
+    }
+    debug: {
+      stackSize: number
+    }
+    fetch: {
+      requestTimeout: number
+      tieredCacheEnabled: boolean
+      tieredCacheMetricsEnabled: boolean
+    }
+    gateway: {
+      host: string
+      https: boolean
+    }
+    i18next: {
+      translationFilePath: string
+      defaultLocale: string
+      allowedLocales: string[]
+    }
+    routers: {
+      common: {
+        clientCacheTimeout: number
+      }
+      json: {
+        maxRelationshipDepth: number
+      }
+    }
+    server: {
+      host: string
+      https: boolean
+      httpsCredentials: {
+        cert: string
+        key: string
+      }
+      port: number
+    }
+    services: {
+      [K in null]: Service
+    }
+    shutdown: {
+      appKill: number
+      serverClose: number
+    }
+  }
+  
+  declare module 'config' {
+    var config: ConfigDefinition; // eslint-disable-line vars-on-top
+    export default config;
+  }
+  
 
 declare module 'flanc' {
 
+}
+
+declare module 'flanc/error' {
+  export function NotFound(message: string, context?: Context, parentError?: ApiError | object): ApiError
 }

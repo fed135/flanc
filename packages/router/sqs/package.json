@@ -21,7 +21,7 @@
         "typescript": "^4.2.4"
     },
     "scripts": {
-        "build": "tsc --outDir ./bin",
+        "build": "rm -rf ./bin && tsc --outDir ./bin src/*.ts ../../flanc/types.d.ts",
         "test": "echo 'TODO'; exit 0;" 
     },
     "main": "./bin/index",

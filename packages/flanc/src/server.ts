@@ -1,14 +1,15 @@
+import config from 'config';
 import context from './context';
 import express from 'express';
 import gracefulShutdown from './graceful-shutdown';
 import healthcheck from './healthcheck';
-import http from 'http';
-import https from 'https';
+import { createServer as createHTTPServer, Server } from 'http';
+import { createServer as createHTTPSServer, Server as SecureServer } from 'https';
 import Logger from './logging';
 import { NotFound } from './errors';
 import security from './security';
 import { setMonitoringModule } from './monitoring';
-import { ExpressAppServer, ExpressMiddleware, ExpressRequest } from './express-types';
+import { ExpressAppServer, ExpressMiddleware, ExpressNext, ExpressRequest, ExpressResponse } from './express-types';
 
 const logger = Logger('core/server');
 
@@ -20,13 +21,9 @@ function applyPlugins(app: ExpressAppServer): ExpressAppServer {
 }
 
 function loadErrorHandlers(app: ExpressAppServer): ExpressAppServer {
+  // @ts-ignore
   app.use(function routeNotFoundHandler(req: ExpressRequest) {
     throw NotFound('The requested content was not found.', req.context);
-  });
-
-  app.use(function errorWrapper(err, req, res, next) {
-    res.status(err.status || 500).send(err);
-    next();
   });
 
   return app;
@@ -45,8 +42,9 @@ function listen(app: ExpressAppServer, config): Promise<ExpressAppServer> {
 export function createServer() {
   process.on('unhandledRejection', (err: Error) => logger.error(`unhandledRejection: ${err.stack}`));
 
+  // @ts-ignore
   const app: ExpressAppServer = express();
-  const server: http.Server | https.Server = (config.server.https === true) ? https.createServer(config.server.httpsCredentials, app) : http.createServer(app);
+  const server: Server | SecureServer = (config.server.https === true) ? createHTTPSServer(config.server.httpsCredentials, app as any) : createHTTPServer(app as any);
   app.server = server;
   app._routers = [];
   app._registryLocation;

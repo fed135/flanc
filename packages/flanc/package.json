@@ -32,7 +32,7 @@
     },
     "typings": "types.d.ts",
     "scripts": {
-        "build": "tsc --outDir ./bin",
+        "build": "rm -rf ./bin && tsc --esModuleInterop true --outDir ./bin ./types.d.ts src/*.ts",
         "test": "TEST_MODE=test jest ./test/*"
     },
     "main": "./bin/server",

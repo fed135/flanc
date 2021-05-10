@@ -1,6 +1,6 @@
 import { modules } from './monitoring';
 import { v4 as uuid } from 'uuid';
-import { ExpressNext, ExpressRequest } from './express-types';
+import { ExpressNext, ExpressRequest, ExpressResponse } from './express-types';
 
 export function createContext(req: ExpressRequest): Context {
   return {
@@ -18,9 +18,9 @@ export function createContext(req: ExpressRequest): Context {
   };
 }
 
-export default function context(req: ExpressRequest, res: Express.Response, next: ExpressNext) {
+export default function context(req: ExpressRequest, res: ExpressResponse, next: ExpressNext) {
   req.context = createContext(req);
-  res.header('x-request-id', req.context.id);
+  res.setHeader('x-request-id', req.context.id);
 
   // Private res
   Object.defineProperty(req.context, 'res', {

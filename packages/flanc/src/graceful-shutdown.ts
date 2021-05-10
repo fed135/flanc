@@ -18,14 +18,14 @@ function shutdown(server: AppServer, onShutdown?: (server: AppServer) => any) {
   }
 }
 
-function shutdownRequest(signal: string, server: AppServer, onShutdown: (server: AppServer) => any) {
+function shutdownRequest(signal: string, server: AppServer, onShutdown?: (server: AppServer) => any) {
   return () => {
     process.stderr.write(signal);
     shutdown(server, onShutdown);
   };
 }
 
-export default function gracefulShutdown(app: ExpressAppServer, onShutdown: (server: AppServer) => any) {
+export default function gracefulShutdown(app: ExpressAppServer, onShutdown?: (server: AppServer) => any) {
   // Modern http compatibility layer
 
   app.server.close = app.server.close || app.server.stop;

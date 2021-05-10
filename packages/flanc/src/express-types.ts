@@ -1,8 +1,20 @@
-import http from 'http';
+import {IncomingMessage, ServerResponse, Server} from 'http';
 
-export type ExpressAppServer = Express & { server?: AppServer };
+// @ts-ignore
+export interface ExpressAppServer extends Express {
+  server?: AppServer
+  _routers?: any[]
+  _registryLocation?: string
+  _extraMiddleware?: ExpressMiddleware[]
+  use: useMiddleware
+}
 
-export interface ExpressRequest extends Express.Request, http.IncomingMessage {
+interface useMiddleware {
+  (mountPath: string, handler: ExpressMiddleware): void
+  (handler: ExpressMiddleware): void
+}
+
+export interface ExpressRequest extends Express.Request, IncomingMessage {
   context?: Context
   baseUrl?: string
   path?: string
@@ -15,11 +27,18 @@ export interface ExpressRequest extends Express.Request, http.IncomingMessage {
   route?: any
 }
 
+export interface ExpressResponse extends Express.Response, ServerResponse {
+  status: any
+}
+
 export type ExpressNext = (err?: any) => any
 
-export type ExpressMiddleware = (req: http.IncomingMessage, res: http.ServerResponse, next: ExpressNext) => void
+export interface ExpressMiddleware {
+  (req?: ExpressRequest, res?: ExpressResponse, next?: ExpressNext): void
+  (err: ApiError | Error, req?: ExpressRequest, res?: ExpressResponse, next?: ExpressNext): void
+}
 
-export interface AppServer extends http.Server {
+export interface AppServer extends Server {
   ready?: boolean
   stop?: () => AppServer
 }
