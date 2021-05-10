@@ -32,7 +32,7 @@
     },
     "typings": "types.d.ts",
     "scripts": {
-        "build": "tsc",
+        "build": "tsc --outDir ./bin",
         "test": "TEST_MODE=test jest ./test/*"
     },
     "main": "./bin/server",
