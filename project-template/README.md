@@ -1,15 +1,14 @@
 # FLANC
 
-- Use @flanc/create-project to build a new project
 - Import routers, middleware, utils and tools to build your enterprise-grade API.
 - Comes pre-loaded with server essentials, `router-json`, folder structure, api documentation, etc.
 - compatible with all monitoring services
 
 
 - Built using Typescript
-- Kubernetes-ready (graceful shutdown, dumb-init)
+- Kubernetes-ready
 - Modern domains-driven architecture
-- Monorepo for easier delegation and isolation
+- Monorepo for easier domain driven architecture
 
 ## Install
 

@@ -43,7 +43,7 @@ type AttributeParams = {
   };
 
   type ModelArguments<TParams = any> = {
-    context: Context
+    context: _Context
     params: TParams
     [key: string]: any
   };
@@ -56,7 +56,7 @@ type AttributeParams = {
     model: Serializable
   };
 
-  type Context = {
+  interface _Context {
     id: string
     ip: string
     method: string
@@ -70,7 +70,7 @@ type AttributeParams = {
     user?: UserToken
     errors: any[]
     operationId?: string
-  };
+  }
 
   type UserToken = {
     id: string | null
@@ -129,7 +129,7 @@ type AttributeParams = {
     method: string
     description: string
     operationId: string
-    resolver?: (context: Context) => any
+    resolver?: (context: _Context) => any
     clientCache?: number
     middlewares?: GenericMiddleware[]
     parameters: { [key: string]: any }[]
@@ -149,11 +149,7 @@ type AttributeParams = {
     supportedMethods: string[]
   }
 
-  interface HtmlRoute extends Route {}
-  interface JsonApiRoute extends Route {}
-  interface SqsRoute extends Route {}
-
-  type ApiError = {
+  interface _ApiError {
     code: string
     details?: Serializable
     message: string
@@ -168,7 +164,7 @@ type AttributeParams = {
     stack: any
     status: number
     title: string
-  };
+  }
 
   type ApiResponse = {
     status: string
@@ -224,16 +220,25 @@ type AttributeParams = {
     }
   }
   
-  declare module 'config' {
-    var config: ConfigDefinition; // eslint-disable-line vars-on-top
-    export default config;
-  }
+declare module 'config' {
+  var config: ConfigDefinition; // eslint-disable-line vars-on-top
+  export default config;
+}
   
 
 declare module 'flanc' {
-
+  export interface Context extends _Context {}
 }
 
 declare module 'flanc/error' {
+  interface Context extends _Context {}
+  interface ApiError extends _ApiError {}
+
+  export function ApiError(error: ApiError | Error | undefined, statusCode?: string | number, message?: string, title?: string, ctx?: Context): void
   export function NotFound(message: string, context?: Context, parentError?: ApiError | object): ApiError
+  export function BadRequest(message: string, context?: Context, parentError?: ApiError | Error): ApiError
+  export function Unauthorized(message: string, context?: Context, parentError?: ApiError | Error): ApiError
+  export function Forbidden(message: string, context?: Context, parentError?: ApiError | Error): ApiError
+  export function Conflict(message: string, context?: Context, parentError?: ApiError | Error): ApiError
+  export function InternalError(message: string, context?: Context, parentError?: ApiError | Error): ApiError
 }
