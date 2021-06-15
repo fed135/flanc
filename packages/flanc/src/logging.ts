@@ -2,7 +2,7 @@ const enabled = (process.env.NODE_DEBUG || '').indexOf('FLANC') > -1 && process.
 const pid = process.pid;
 
 function print(namespace: string, level: string) {
-  return function _namespacedPrint(message: any, context?: Context) {
+  return function _namespacedPrint(message: any, context?: _Context) {
     if (enabled === false) return;
     process.stdout.write(JSON.stringify({
       'request-id': context && context.id,

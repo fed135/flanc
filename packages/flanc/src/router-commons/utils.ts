@@ -1,7 +1,7 @@
 import { BadRequest } from '../errors';
 import config from 'config';
 
-function guardAgainstForbiddenIncludePattern(includeVal: string[], includeParam?: Serializable, context?: Context) {
+function guardAgainstForbiddenIncludePattern(includeVal: string[], includeParam?: Serializable, context?: _Context) {
   if (!includeVal || includeVal.length === 0) return;
   if (!includeParam) return;
 

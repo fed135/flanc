@@ -1,6 +1,6 @@
 /* istanbul ignore file */
 
-import { router as commonRouter } from 'flanc/router-commons';
+import { register as commonRouterRegister } from 'flanc/router-commons';
 import { render as renderDocumentation } from 'flanc/router-commons/documentation';
 
 export const path = '/html';
@@ -35,8 +35,8 @@ export function setupRouter(RouterConstructor) {
   return router;
 }
 
-export function register(route: HtmlRoute) {
-  commonRouter.register(route, router, {
+export function register(route: _HtmlRoute) {
+  commonRouterRegister(route, router, {
     supportedMethods: ['get', 'post'],
     responseHeaders: { 'content-type': 'text/html; charset=UTF-8' },
     formatError,

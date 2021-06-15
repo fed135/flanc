@@ -21,7 +21,7 @@ const defaultResponse = {
   },
 };
 
-function dataModelAsDefinition(model: DataModel) {
+function dataModelAsDefinition(model: _Model) {
   return {
     type: 'object',
     properties: {
@@ -59,7 +59,7 @@ export const swaggerBase = {
     version: '0.0.0',
     title: '<project_name> API',
   },
-  host: config.host,
+  host: config.server.host,
   basePath: '/jsonapi',
   schemes: [
     'http',
@@ -69,15 +69,11 @@ export const swaggerBase = {
   produces: ['application/json'],
 };
 
-type Spec = {
-  [key: string]: JsonApiRoute
-}
-
 export function expressTokensToSwagger(path) {
   return path.replace(/(:[a-zA-Z0-9\-\_]+)/g, (key) => `{${key.substring(1)}}`);
 }
 
-export function render(spec: Spec) {
+export function render(spec: any) {
   const routes = Object.keys(spec);
   return {
     ...swaggerBase,

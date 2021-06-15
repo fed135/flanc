@@ -9,7 +9,7 @@ import Logger from './logging';
 import { NotFound } from './errors';
 import security from './security';
 import { setMonitoringModule } from './monitoring';
-import { ExpressAppServer, ExpressMiddleware, ExpressNext, ExpressRequest, ExpressResponse } from './express-types';
+import { ExpressAppServer, ExpressMiddleware, ExpressRequest } from 'flanc/express-types';
 
 const logger = Logger('core/server');
 

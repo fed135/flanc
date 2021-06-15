@@ -1,5 +1,5 @@
 import { modules } from '../../monitoring';
-import { ExpressNext, ExpressRequest } from '../../express-types';
+import { ExpressNext, ExpressRequest } from 'flanc/express-types';
 
 export default function monitor(req: ExpressRequest, res: Express.Response, next: ExpressNext) {
   if (!req.context.operationId) return next();

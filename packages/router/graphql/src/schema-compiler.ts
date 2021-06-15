@@ -1,10 +1,18 @@
 import { sanitize } from 'flanc/data-model';
+import { Context, Model } from 'flanc';
+
+type Schema = {
+  model?: Model,
+  related?: Schema[],
+  scalar?: Serializable,
+  definition?: { [attribute: string]: string }
+}
 
 export function append(
   master: { [key: string]: Serializable },
   resolvers: {},
   scalars: {},
-  schema: { model?: DataModel, related?: Serializable, scalar?: Serializable, definition?: { [attribute: string]: string } } = {}
+  schema: Schema = {}
 ) {
   if (schema.definition) {
     Object.keys(schema.definition).forEach((key) => {
@@ -13,7 +21,7 @@ export function append(
   }
 
   if (schema.related) {
-    schema.related.forEach((related: Serializable) => append(master, resolvers, scalars, related));
+    schema.related.forEach((related: Schema) => append(master, resolvers, scalars, related));
   }
 
   if (schema.model) {
@@ -34,7 +42,7 @@ export function compile(master: { [key: string]: Serializable }, scalar: string,
   return `${scalar}\n${bundledModels}\n${queryString}\n${mutationString}`;
 }
 
-export function mapAttributesResolver(model: DataModel) {
+export function mapAttributesResolver(model: Model) {
   const modelName = `${model.type[0].toUpperCase()}${model.type.slice(1)}`;
   const modelResolvers: {[attribute: string]: (obj: any, params?: any, context?: Context) => any} = {};
 

@@ -48,7 +48,7 @@ type IncludeParams = {
   blacklist?: string[]
 }
 
-export function include(model: DataModel, { maxDepth, whitelist, blacklist }: IncludeParams = {}) {
+export function include(model: _Model, { maxDepth, whitelist, blacklist }: IncludeParams = {}) {
   const relationships = Object.keys(model.relationships);
 
   return {
@@ -64,7 +64,7 @@ export function include(model: DataModel, { maxDepth, whitelist, blacklist }: In
   };
 }
 
-export function fields(type: string, model?: DataModel | { attributes: string[] }) {
+export function fields(type: string, model?: _Model | { attributes: string[] }) {
   const base = {
     name: `fields[${type}]`,
     in: 'query',
@@ -86,7 +86,7 @@ export function pageNumber(defaultPage: number) {
     type: 'integer',
     format: 'int32',
     minimum: 1,
-    default: defaultPage || 1,
+    default: defaultPage ?? 1,
   };
 }
 
@@ -103,23 +103,20 @@ export function nestedPageNumber(type: string) {
 }
 
 export function pageSize(defaultSize: number) {
-  const definition: Serializable = {
+  return {
     name: 'page[size]',
     in: 'query',
     description: 'Items per page',
     type: 'integer',
     format: 'int32',
     minimum: 0,
-    maximum: 200,
+    maximum: 1000,
+    default: defaultSize ?? 100
   };
-  if (defaultSize) {
-    definition.default = defaultSize;
-  }
-  return definition;
 }
 
-export function nestedPageSize(type: string, options: Serializable) {
-  const definition: Serializable = {
+export function nestedPageSize(type: string, options: { defaultSize?: number }) {
+  return {
     name: `page[${type}][size]`,
     in: 'query',
     description: `Items per page for type '${type}'`,
@@ -127,11 +124,8 @@ export function nestedPageSize(type: string, options: Serializable) {
     format: 'int32',
     minimum: 0,
     maximum: 20,
+    default: options?.defaultSize ?? 20
   };
-  if (options.defaultSize) {
-    definition.default = options.defaultSize;
-  }
-  return definition;
 }
 
 export function pageOffset(defaultValue: number) {

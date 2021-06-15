@@ -3,7 +3,7 @@ import config from 'config';
 import { ApiError } from './errors';
 import { to } from './async';
 
-export async function fetch(service: Service, options: RequestOptions, contexts: Context | Context[]): Promise<any> {
+export async function fetch(service: Service, options: RequestOptions, contexts: _Context | _Context[]): Promise<any> {
   options.headers = options.headers || {};
   options.headers['x-request-id'] = options.headers?.['x-request-id'] || getRequestContexts(contexts);
 
@@ -23,7 +23,7 @@ export async function fetch(service: Service, options: RequestOptions, contexts:
   return responseInterceptor(err, response, service, options, Array.isArray(contexts) ? contexts : [contexts]);
 }
 
-function getRequestContexts(contexts: Context | Context[]): string {
+function getRequestContexts(contexts: _Context | _Context[]): string {
   if (Array.isArray(contexts)) {
     return contexts.map((c) => c.id)
       .filter((id, index, arr) => arr.indexOf(id) === index)
@@ -37,7 +37,7 @@ function responseInterceptor(
   response: any,
   service: Service,
   options: RequestOptions,
-  contexts: Context[]
+  contexts: _Context[]
 ): any {
   if (err) {
     if (err.response) {

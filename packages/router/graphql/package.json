@@ -1,40 +1,23 @@
 {
     "name": "@flanc/router-graphql",
     "version": "0.0.1",
+    "private": true,
     "description": "The graphql router for flanc apis",
     "license": "Apache-2.0",
-    "keywords": [
-        "flanc",
-        "router",
-        "graphql",
-        "apollo"
-    ],
     "dependencies": {
         "apollo-server-express": "^2.24.0",
         "config": "^3.3.0",
         "express": "^4.17.1",
-        "flanc": "^0.0.1",
+        "flanc": "file:../../flanc",
         "graphql": "^15.5.0"
     },
     "devDependencies": {
         "typescript": "^4.2.4"
     },
+    "typings": "./types.d.ts",
     "scripts": {
-        "build": "rm -rf ./bin && tsc  --outDir ./bin src/*.ts ../../flanc/types.d.ts",
+        "build": "rm -rf ./bin && tsc --esModuleInterop true  --skipLibCheck true --outDir ./bin src/*.ts ../../../node_modules/flanc/types.d.ts && cp ./publish-package.json ./bin/package.json && cp ./README.md ./bin/README.md && cp ./types.d.ts ./bin/types.d.ts",
         "test": "echo 'TODO'; exit 0;" 
     },
-    "main": "./bin/index",
-    "files": ["./bin"],
-    "homepage": "https://github.com/fed135/flanc",
-  "contributors": [
-    "frederic charette <fredericcharette@gmail.com>"
-  ],
-  "bugs": {
-    "url": "https://github.com/fed135/flanc/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "ssh://git@github.com/fed135/flanc.js.git",
-    "directory": "packages/router/graphql"
-  }
+    "main": "./bin/index"
 }

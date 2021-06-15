@@ -1,0 +1,33 @@
+{
+    "name": "@flanc/router-html",
+    "version": "0.0.1",
+    "description": "The html router for the flanc apis",
+    "license": "Apache-2.0",
+    "keywords": [
+        "flanc",
+        "router",
+        "html",
+        "render"
+    ],
+    "dependencies": {
+        "config": "^3.3.0",
+        "flanc": "^0.0.1"
+    },
+    "devDependencies": {
+        "typescript": "^4.2.4"
+    },
+    "main": "./index",
+    "homepage": "https://github.com/fed135/flanc",
+  "contributors": [
+    "frederic charette <fredericcharette@gmail.com>"
+  ],
+  "bugs": {
+    "url": "https://github.com/fed135/flanc/issues"
+  },
+  "typings": "./types.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@github.com/fed135/flanc.js.git",
+    "directory": "packages/router/html"
+  }
+}

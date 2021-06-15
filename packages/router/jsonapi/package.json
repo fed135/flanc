@@ -1,21 +1,15 @@
 {
     "name": "@flanc/router-json",
     "version": "0.0.1",
+    "private": true,
     "description": "The openapi router for flanc apis",
     "license": "Apache-2.0",
-    "keywords": [
-        "flanc",
-        "router",
-        "jsonapi",
-        "openapi",
-        "swagger"
-    ],
     "dependencies": {
         "config": "^3.3.0",
         "express": "^4.17.1",
         "express-fileupload": "^1.2.1",
         "express-xml-bodyparser": "^0.3.0",
-        "flanc": "^0.0.1",
+        "flanc": "file:../../flanc",
         "swagger-route-validator": "^1.0.2"
     },
     "devDependencies": {
@@ -23,22 +17,10 @@
         "@types/express-xml-bodyparser": "^0.3.2",
         "typescript": "^4.2.4"
     },
+    "typings": "./types.d.ts",
     "scripts": {
-        "build": "rm -rf ./bin && tsc --outDir ./bin src/*.ts ../../flanc/types.d.ts",
+        "build": "rm -rf ./bin && tsc --esModuleInterop true  --skipLibCheck true --outDir ./bin src/*.ts ./types.d.ts ../../../node_modules/flanc/types.d.ts && cp ./publish-package.json ./bin/package.json && cp ./README.md ./bin/README.md && cp ./types.d.ts ./bin/types.d.ts",
         "test": "echo 'TODO'; exit 0;" 
     },
-    "main": "./bin/index",
-    "files": ["./bin"],
-    "homepage": "https://github.com/fed135/flanc",
-  "contributors": [
-    "frederic charette <fredericcharette@gmail.com>"
-  ],
-  "bugs": {
-    "url": "https://github.com/fed135/flanc/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "ssh://git@github.com/fed135/flanc.js.git",
-    "directory": "packages/router/jsonapi"
-  }
+    "main": "./bin/index"
 }

@@ -1,6 +1,7 @@
 /* istanbul ignore file */
 
 import config from 'config';
+import { Context } from 'flanc';
 import { deferred } from 'flanc/async';
 import { ExpressRequest } from 'flanc/express-types';
 import { GraphQLError } from 'graphql';
@@ -98,7 +99,7 @@ export function init() {
     },
     formatError: (error: GraphQLError) => {
       const printStack = config.debug.stackSize > 0;
-      const { code, message, stack, source, status, title } = error.originalError;
+      const { code, message, stack, source, status, title } = error.originalError as any;
       const formattedStack = printStack ? stack : undefined;
       return { code, message, source, stack: formattedStack, status, title };
     },

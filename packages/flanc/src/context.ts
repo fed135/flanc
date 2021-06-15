@@ -1,8 +1,8 @@
 import { modules } from './monitoring';
 import { v4 as uuid } from 'uuid';
-import { ExpressNext, ExpressRequest, ExpressResponse } from './express-types';
+import { ExpressNext, ExpressRequest, ExpressResponse } from 'flanc/express-types';
 
-export function createContext(req: ExpressRequest): Context {
+export function createContext(req: ExpressRequest): _Context {
   return {
     id: req.headers['x-request-id'] && req.headers['x-request-id'].toString() || uuid(),
     ip: req.headers['x-real-ip'] || (req.headers['x-forwarded-for'] || '').split(',').pop() || req.ip,

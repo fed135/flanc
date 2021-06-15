@@ -50,7 +50,7 @@ function parseRelationshipEntity(response, { data, context, model, parent, branc
 function fetchIncludedRelationships(response: any, { data, context, model, parent }, cursor: string) {
   const includeTree = getIncludeTreeBase(cursor);
   return Promise.all(includeTree.map(async (branch) => {
-    const handle: RelationshipParams = model.relationships[branch];
+    const handle: RelationshipParams<Promise<any>> = model.relationships[branch];
     const targetModel = handle.model;
     if (targetModel) {
       const [errors, entities] = await to(handle.resolver(data, { context, params: context.params, relationship: branch, model: targetModel }));

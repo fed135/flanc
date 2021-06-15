@@ -18,15 +18,11 @@ type AttributeParams = {
 
   type SerializableParams = { [key: string]: Serializable };
 
-  interface HtmlRoute extends Route {
-    method: 'get' | 'post'
-  }
-
-  interface JsonApiRoute extends Route {
+  interface JsonApiRoute extends _Route {
     method: HttpMethods
   }
 
-  interface SqsRoute extends Route {
+  interface SqsRoute extends _Route {
     method: 'sqs'
   }
 
@@ -48,12 +44,12 @@ type AttributeParams = {
     [key: string]: any
   };
 
-  type RelationshipParams = {
+  type RelationshipParams<T> = {
     resolver: (
       src: Serializable,
       { context, params }: ModelArguments
-    ) => Serializable
-    model: Serializable
+    ) => T
+    model: _Model
   };
 
   interface _Context {
@@ -79,10 +75,10 @@ type AttributeParams = {
     roles?: string[]
   };
 
-  interface Model {
+  interface _Model {
     type: string
     attributes: { [key: string]: AttributeParams }
-    relationships?: { [relationship: string]: RelationshipParams }
+    relationships?: { [relationship: string]: RelationshipParams<any> }
   }
 
   type OpenApiEntityIdentifier = {
@@ -124,7 +120,7 @@ type AttributeParams = {
     visibilityTimeout?: number
   }
 
-  interface Route {
+  interface _Route {
     path: string
     method: string
     description: string
@@ -134,7 +130,7 @@ type AttributeParams = {
     middlewares?: GenericMiddleware[]
     parameters: { [key: string]: any }[]
     tags: string[]
-    model?: Model
+    model?: _Model
     'x-client-cache'?: number
     responses?: {
       [statusCode: number]: Serializable
@@ -228,6 +224,8 @@ declare module 'config' {
 
 declare module 'flanc' {
   export interface Context extends _Context {}
+  export interface Model extends _Model {}
+  export interface Route extends _Route {}
 }
 
 declare module 'flanc/error' {
@@ -241,4 +239,77 @@ declare module 'flanc/error' {
   export function Forbidden(message: string, context?: Context, parentError?: ApiError | Error): ApiError
   export function Conflict(message: string, context?: Context, parentError?: ApiError | Error): ApiError
   export function InternalError(message: string, context?: Context, parentError?: ApiError | Error): ApiError
+}
+
+declare module 'flanc/async' {
+  export function deferred<T>(): any
+  export function to<T = any>(promise: Promise<T>): Promise<[null, T] | [any, null?]>
+  export function safe<T = any>(fn: (args?: any) => T, params: Serializable[]): Promise<T>
+  export function sequence<T, K>(array: Array<K>, operation: (item: K, index: number) => Promise<T>): Promise<Array<T>>
+}
+
+declare module 'flanc/monitoring' {
+  export function setMonitoringModule(moduleName: string, module: any): void
+  export const modules: any
+}
+
+declare module 'flanc/express-types' {
+  import {IncomingMessage, ServerResponse, Server} from 'http';
+
+  // @ts-ignore
+  export interface ExpressAppServer extends Express {
+    server?: AppServer
+    _routers?: any[]
+    _registryLocation?: string
+    _extraMiddleware?: ExpressMiddleware[]
+    use: useMiddleware
+  }
+
+  interface useMiddleware {
+    (mountPath: string, handler: ExpressMiddleware): void
+    (handler: ExpressMiddleware): void
+  }
+
+export interface ExpressRequest extends Express.Request, IncomingMessage {
+  context?: _Context
+  baseUrl?: string
+  path?: string
+  headers: { [header: string]: string }
+  params?: { [key: string]: Serializable }
+  query?: { [key: string]: Serializable }
+  ip: string
+  body?: any
+  files?: any
+  route?: any
+}
+
+export interface ExpressResponse extends Express.Response, ServerResponse {
+  status: any
+}
+
+export type ExpressNext = (err?: any) => any
+
+export interface ExpressMiddleware {
+  (req?: ExpressRequest, res?: ExpressResponse, next?: ExpressNext): void
+  (err: _ApiError | Error, req?: ExpressRequest, res?: ExpressResponse, next?: ExpressNext): void
+}
+
+export interface AppServer extends Server {
+  ready?: boolean
+  stop?: () => AppServer
+}
+
+}
+
+declare module 'flanc/data-model' {
+  export function sanitize(model: _Model): any
+  export function DataModel<M extends _Model>(model: M): M
+}
+
+declare module 'flanc/router-commons' {
+  export function register(route: _Route, router, specifications: RouterSpecifications): void
+}
+
+declare module 'flanc/router-commons/documentation' {
+  export function render(spec: SerializableParams): Serializable
 }

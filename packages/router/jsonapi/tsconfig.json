@@ -17,7 +17,7 @@
       "node_modules"
     ],
     "include": [
-      "index.d.ts",
+      "types.d.ts",
       "packages/**/*.ts",
       "test/**/*.ts"
     ]

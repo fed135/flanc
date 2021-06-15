@@ -36,7 +36,7 @@ function link(resolver, model, clientCache, specifications: RouterSpecifications
   };
 }
 
-function guardAgainstBadRouteIntegrity(route: Route, specifications: RouterSpecifications) {
+function guardAgainstBadRouteIntegrity(route: _Route, specifications: RouterSpecifications) {
   if (!(specifications.supportedMethods.includes(route.method))) throw new Error(`Invalid route verb ${route.method}`);
   if (route.method !== 'get') return;
 
@@ -56,7 +56,7 @@ function guardAgainstBadRouteIntegrity(route: Route, specifications: RouterSpeci
   });
 }
 
-function register(route: Route, router, specifications: RouterSpecifications) {
+export function register(route: _Route, router, specifications: RouterSpecifications) {
   if (!route.operationId) throw new Error(`Missing operation id for new route ${route.path}`);
   if (!route.resolver) throw new Error(`Missing resolver for new route ${route.path}`);
 
@@ -78,7 +78,3 @@ function register(route: Route, router, specifications: RouterSpecifications) {
     link(route.resolver, route.model, route.clientCache, specifications)
   );
 }
-
-export const router = {
-  register,
-};

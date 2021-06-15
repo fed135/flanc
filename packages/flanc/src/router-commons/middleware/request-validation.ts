@@ -1,11 +1,11 @@
 import { path } from '../utils';
 import validate from 'swagger-route-validator';
-import { BadRequest, NotFound } from '../../../errors';
-import { ExpressNext, ExpressRequest } from '../../../express-types';
+import { BadRequest, NotFound } from '../../errors';
+import { ExpressNext, ExpressRequest } from 'flanc/express-types';
 
 export default (app) => function validateRequest(req: ExpressRequest, res: any, next: ExpressNext) {
   const operationId = `${req.method.toLowerCase()} ${req.route.path}`;
-  const matchingSpec: Route = app._spec[operationId];
+  const matchingSpec: _Route = app._spec[operationId];
   req.context.operationId = operationId;
 
   if (!matchingSpec) throw NotFound(`Route not found ${operationId}`, req.context);

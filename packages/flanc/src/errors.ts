@@ -16,7 +16,7 @@ const trimAuthorization = (headers) => {
   return headers;
 };
 
-export function ApiError(error: ApiError | Error | undefined, statusCode?: string | number, message?: string, title?: string, ctx?: Context): void {
+export function ApiError(error: _ApiError | Error | undefined, statusCode?: string | number, message?: string, title?: string, ctx?: _Context): void {
   // @ts-ignore
   if ((error as ApiError)?.source) return error as ApiError;
 
@@ -32,37 +32,37 @@ export function ApiError(error: ApiError | Error | undefined, statusCode?: strin
     error: printStack ? error?.stack : undefined,
   };
 
-  this.status = Number(statusCode || (error as ApiError).status) || 500;
+  this.status = Number(statusCode || (error as _ApiError).status) || 500;
   this.message = message || error.message || error.toString();
-  this.title = title || (error as ApiError)?.title || (error as Error)?.name;
-  this.code = (error as ApiError)?.code || 'API-000000';
-  this.details = (error as ApiError)?.details || '';
+  this.title = title || (error as _ApiError)?.title || (error as Error)?.name;
+  this.code = (error as _ApiError)?.code || 'API-000000';
+  this.details = (error as _ApiError)?.details || '';
 
   if (isPrintableEnv()) logger.error(JSON.stringify(this), ctx);
 }
 
 ApiError.prototype = Error.prototype;
 
-export function BadRequest(message: string, context?: Context, parentError?: ApiError | Error): ApiError {
+export function BadRequest(message: string, context?: _Context, parentError?: _ApiError | Error): _ApiError {
   return new ApiError(parentError, 400, message, 'Bad Request', context);
 }
 
-export function Unauthorized(message: string, context?: Context, parentError?: ApiError | Error): ApiError {
+export function Unauthorized(message: string, context?: _Context, parentError?: _ApiError | Error): _ApiError {
   return new ApiError(parentError, 401, message, 'Unauthorized', context);
 }
 
-export function Forbidden(message: string, context?: Context, parentError?: ApiError | Error): ApiError {
+export function Forbidden(message: string, context?: _Context, parentError?: _ApiError | Error): _ApiError {
   return new ApiError(parentError, 403, message, 'Forbidden', context);
 }
 
-export function NotFound(message: string, context?: Context, parentError?: ApiError | Error): ApiError {
+export function NotFound(message: string, context?: _Context, parentError?: _ApiError | Error): _ApiError {
   return new ApiError(parentError, 404, message, 'Not Found', context);
 }
 
-export function Conflict(message: string, context?: Context, parentError?: ApiError | Error): ApiError {
+export function Conflict(message: string, context?: _Context, parentError?: _ApiError | Error): _ApiError {
   return new ApiError(parentError, 409, message, 'Conflict', context);
 }
 
-export function InternalError(message: string, context?: Context, parentError?: ApiError | Error): ApiError {
+export function InternalError(message: string, context?: _Context, parentError?: _ApiError | Error): _ApiError {
   return new ApiError(parentError, 500, message, 'Internal Server Error', context);
 }

@@ -1,4 +1,4 @@
-export const sanitize = (model: Model) => {
+export function sanitize(model: _Model): any {
   const attributes = model.attributes;
   const type = model.type;
 
@@ -21,6 +21,6 @@ export const sanitize = (model: Model) => {
   return attributes;
 };
 
-export function DataModel<M extends Model>(model: M): M {
+export function DataModel<M extends _Model>(model: M): M {
   return model;
 }

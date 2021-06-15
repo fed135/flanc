@@ -45,7 +45,7 @@ function isFieldNotEmpty(object: any, field: string): boolean {
   return Object.hasOwnProperty.bind(object)(field) && ![undefined, null, ''].includes(object[field]);
 }
 
-function empty(value: string, key: string, context: Context) {
+function empty(value: string, key: string, context: _Context) {
   if (isEmpty(value)) throw BadRequest(`Missing \`${key}\`.`, context);
 }
 
@@ -55,7 +55,7 @@ function isValidHmacSignature({ payload, algo, key, signature }: PayloadHmacSign
     .digest('base64') === signature;
 }
 
-function invalidHmacSignature(options: PayloadHmacSignatureOptions, context: Context) {
+function invalidHmacSignature(options: PayloadHmacSignatureOptions, context: _Context) {
   if (!isValidHmacSignature(options)) throw Unauthorized('Invalid Signature', context);
 }
 

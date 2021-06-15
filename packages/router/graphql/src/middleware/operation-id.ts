@@ -1,4 +1,4 @@
-import { ExpressNext, ExpressRequest } from '@<project_name>/core-util/express-types';
+import { ExpressNext, ExpressRequest } from 'flanc/express-types';
 
 function getGraphQLTransactionName(body) {
   if (body.operationName && body.operationName.length > 1) return `graphql ${body.operationName}`;

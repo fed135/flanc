@@ -32,11 +32,10 @@
     },
     "typings": "types.d.ts",
     "scripts": {
-        "build": "rm -rf ./bin && tsc --esModuleInterop true --outDir ./bin ./types.d.ts src/*.ts",
+        "build": "rm -rf ./bin && tsc --esModuleInterop true --outDir ./bin ./types.d.ts src/*.ts && cp ./package.json ./bin/package.json && cp ./README.md ./bin/README.md && cp ./types.d.ts ./bin/types.d.ts",
         "test": "TEST_MODE=test jest ./test/*"
     },
-    "main": "./bin/server",
-    "files": ["./bin"],
+    "main": "./server",
     "homepage": "https://github.com/fed135/flanc",
   "contributors": [
     "frederic charette <fredericcharette@gmail.com>"

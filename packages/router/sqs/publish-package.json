@@ -1,0 +1,36 @@
+{
+    "name": "@flanc/router-sqs",
+    "version": "0.0.0",
+    "description": "The sqs router for flanc apis",
+    "license": "Apache-2.0",
+    "keywords": [
+        "flanc",
+        "router",
+        "aws",
+        "sqs",
+        "queue"
+    ],
+    "dependencies": {
+        "aws-sdk": "^2.902.0",
+        "config": "^3.3.0",
+        "flanc": "^0.0.1",
+        "uuid": "^8.3.0"
+    },
+    "devDependencies": {
+        "typescript": "^4.2.4"
+    },
+    "main": "./index",
+    "homepage": "https://github.com/fed135/flanc",
+  "contributors": [
+    "frederic charette <fredericcharette@gmail.com>"
+  ],
+  "bugs": {
+    "url": "https://github.com/fed135/flanc/issues"
+  },
+  "typings": "./types.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@github.com/fed135/flanc.js.git",
+    "directory": "packages/router/sqs"
+  }
+}

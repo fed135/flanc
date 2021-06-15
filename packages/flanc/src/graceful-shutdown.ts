@@ -1,4 +1,4 @@
-import { AppServer, ExpressAppServer } from './express-types';
+import { AppServer, ExpressAppServer } from 'flanc/express-types';
 import config from 'config';
 import stoppable from 'stoppable';
 import { stopStatisticsPolling } from './store';
