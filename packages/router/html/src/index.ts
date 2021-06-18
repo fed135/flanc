@@ -2,6 +2,7 @@
 
 import { register as commonRouterRegister } from 'flanc/router-commons';
 import { render as renderDocumentation } from 'flanc/router-commons/documentation';
+import { _HtmlRoute } from '../types';
 
 export const path = '/html';
 let router;

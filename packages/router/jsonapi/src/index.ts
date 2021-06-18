@@ -1,7 +1,8 @@
 /* istanbul ignore file */
 
-import { router as commonRouter } from 'flanc/router-commons';
+import { register as commonRouterRegister } from 'flanc/router-commons';
 import { render as renderDocumentation } from 'flanc/router-commons/documentation';
+import { _JsonApiRoute } from '../types';
 
 let router;
 
@@ -33,8 +34,8 @@ function formatter(data) {
   return (typeof data === 'string') ? data : JSON.stringify(data);
 }
 
-export function register(route: JsonApiRoute) {
-  commonRouter.register(route, router, {
+export function register(route: _JsonApiRoute) {
+  commonRouterRegister(route, router, {
     supportedMethods: ['get', 'post', 'patch', 'delete'],
     responseHeaders: { 'content-type': 'application/json' },
     formatError: (error) => formatter(error),

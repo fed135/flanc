@@ -1,37 +1,38 @@
 /* istanbul ignore file */
 
-import config from 'config';
 import { deferred } from 'flanc/async';
 import { InternalError } from 'flanc/errors';
 import Logger from 'flanc/logging';
 import { SQS } from 'aws-sdk';
 import { modules } from 'flanc/monitoring';
 import { v4 as uuid } from 'uuid';
+import { _SqsOptions, _SqsRoute } from '../types';
+import { Route } from 'flanc';
 
-const logger = Logger('<project_name>/router-sqs');
+type Serializable = string | number | boolean | { [key: string]: Serializable } | Array<Serializable>;
+
+const logger = Logger('flanc/router-sqs');
 const pollers = {};
 const instance = new SQS({ apiVersion: '2012-11-05' });
 
 const PARALLEL_POLL_INTERVAL = 5000;
 const SEQUENTIAL_POLL_INTERVAL = 100;
 
-function createQueuePoller(route: SqsRoute) {
-  const { sqsOptions, uri } = config.aws.sqs.queues[route.path];
-
+function createQueuePoller(queueUrl: string, sqsOptions: _SqsOptions) {
   const params = {
     AttributeNames: ['SentTimestamp'],
     MaxNumberOfMessages: sqsOptions?.maxNumberOfMessages ?? 10,
     MessageAttributeNames: ['All'],
-    QueueUrl: uri,
+    QueueUrl: queueUrl,
     VisibilityTimeout: sqsOptions?.visibilityTimeout ?? 300,
   };
 
   const pollerTypes = {
-    parallel: () => setInterval(() => poller(uri, sqsOptions), sqsOptions?.pollIntervalMs ?? PARALLEL_POLL_INTERVAL),
-    sequential: () => setTimeout(() => pollSequential(uri, sqsOptions), 0),
+    parallel: () => setInterval(() => poller(queueUrl, sqsOptions), sqsOptions?.pollIntervalMs ?? PARALLEL_POLL_INTERVAL),
+    sequential: () => setTimeout(() => pollSequential(queueUrl, sqsOptions), 0),
   };
 
-  pollers[uri] = {
+  pollers[queueUrl] = {
     active: true,
     params,
     events: [],
@@ -39,7 +40,7 @@ function createQueuePoller(route: SqsRoute) {
   };
 }
 
-function poller(queue: string, sqsOptions: SqsOptions) {
+function poller(queue: string, sqsOptions: _SqsOptions) {
   const { params } = pollers[queue];
 
   return poll(queue)
@@ -60,7 +61,7 @@ function poller(queue: string, sqsOptions: SqsOptions) {
     });
 }
 
-function pollSequential(queue: string, sqsOptions: SqsOptions): void {
+function pollSequential(queue: string, sqsOptions: _SqsOptions): void {
   const { active } = pollers[queue];
 
   if (active !== true) return;
@@ -69,7 +70,7 @@ function pollSequential(queue: string, sqsOptions: SqsOptions): void {
     .then(() => setTimeout(() => pollSequential(queue, sqsOptions), sqsOptions?.pollIntervalMs ?? SEQUENTIAL_POLL_INTERVAL));
 }
 
-function poll(queue: string): Promise<any> {
+function poll(queue: string): Promise<Promise<any>[]> {
   const promises = [];
 
   return instance.receiveMessage(pollers[queue].params)
@@ -125,12 +126,11 @@ function createContext(body: Serializable, receiptHandle: string) {
   };
 }
 
-export function register(route: Route) {
-  const { uri } = config.aws.sqs.queues?.[route.path] ?? {};
-  if (!uri) return logger.error(`Cannot register queue "${route.path}" for route ${uri}. It should be a valid url. Route disabled.`);
-  if (!(uri in pollers)) createQueuePoller(route);
+export function register(route: Route, queueUrl: string, sqsOptions: _SqsOptions) {
+  if (!queueUrl) return logger.error(`Cannot register queue "${route.path}" for route ${queueUrl}. It should be a valid url. Route disabled.`);
+  if (!(queueUrl in pollers)) createQueuePoller(queueUrl, sqsOptions);
 
-  pollers[uri].events.push(route);
+  pollers[queueUrl].events.push(route);
 }
 
 export function closeRouter() {

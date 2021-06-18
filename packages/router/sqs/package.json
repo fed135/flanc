@@ -15,7 +15,7 @@
     },
     "typings": "./types.d.ts",
     "scripts": {
-        "build": "rm -rf ./bin && tsc --esModuleInterop true  --skipLibCheck true --outDir ./bin src/*.ts ../../../node_modules/flanc/types.d.ts && cp ./publish-package.json ./bin/package.json && cp ./README.md ./bin/README.md && cp ./types.d.ts ./bin/types.d.ts",
+        "build": "rm -rf ./bin && tsc --esModuleInterop true  --skipLibCheck true --lib ES2020.Promise --outDir ./bin src/*.ts ../../../node_modules/flanc/types.d.ts && cp ./publish-package.json ./bin/package.json && cp ./README.md ./bin/README.md && cp ./types.d.ts ./bin/types.d.ts",
         "test": "echo 'TODO'; exit 0;" 
     },
     "main": "./bin/index"

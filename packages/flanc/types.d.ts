@@ -112,14 +112,6 @@ type AttributeParams = {
     (req: any, res: any, next: () => any): void
   }
 
-  type SqsOptions = {
-    forceDelete?: boolean
-    pollerType?: 'parallel' | 'sequential'
-    pollIntervalMs?: number
-    maxNumberOfMessages?: number
-    visibilityTimeout?: number
-  }
-
   interface _Route {
     path: string
     method: string
@@ -228,7 +220,7 @@ declare module 'flanc' {
   export interface Route extends _Route {}
 }
 
-declare module 'flanc/error' {
+declare module 'flanc/errors' {
   interface Context extends _Context {}
   interface ApiError extends _ApiError {}
 
@@ -251,6 +243,14 @@ declare module 'flanc/async' {
 declare module 'flanc/monitoring' {
   export function setMonitoringModule(moduleName: string, module: any): void
   export const modules: any
+}
+
+declare module 'flanc/logging' {
+  export default function debug(namespace: string): {
+    log: (message: any, context?: _Context) => void
+    warn: (message: any, context?: _Context) => void
+    error: (message: any, context?: _Context) => void
+  }
 }
 
 declare module 'flanc/express-types' {
