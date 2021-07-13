@@ -207,6 +207,11 @@ type AttributeParams = {
       serverClose: number
     }
   }
+
+interface _Router {
+  setupRouter: (constructor: any) => void 
+  register: (route: _Route) => void
+}
   
 declare module 'config' {
   var config: ConfigDefinition; // eslint-disable-line vars-on-top
@@ -218,6 +223,66 @@ declare module 'flanc' {
   export interface Context extends _Context {}
   export interface Model extends _Model {}
   export interface Route extends _Route {}
+  export interface Router extends _Router {}
+}
+
+declare module 'flanc/server' {
+  import {IncomingMessage, ServerResponse, Server as _Server} from 'http';
+
+  // @ts-ignore
+interface ExpressAppServer extends Express {
+    server?: AppServer
+    _routers?: any[]
+    _registryLocation?: string
+    _extraMiddleware?: ExpressMiddleware[]
+    use: useMiddleware
+  }
+
+  interface useMiddleware {
+    (mountPath: string, handler: ExpressMiddleware): void
+    (handler: ExpressMiddleware): void
+  }
+
+interface ExpressRequest extends Express.Request, IncomingMessage {
+  context?: _Context
+  baseUrl?: string
+  path?: string
+  headers: { [header: string]: string }
+  params?: { [key: string]: Serializable }
+  query?: { [key: string]: Serializable }
+  ip: string
+  body?: any
+  files?: any
+  route?: any
+}
+
+interface ExpressResponse extends Express.Response, ServerResponse {
+  status: any
+}
+
+type ExpressNext = (err?: any) => any
+
+interface ExpressMiddleware {
+  (req?: ExpressRequest, res?: ExpressResponse, next?: ExpressNext): void
+  (err: _ApiError | Error, req?: ExpressRequest, res?: ExpressResponse, next?: ExpressNext): void
+}
+
+interface AppServer extends _Server {
+  ready?: boolean
+  stop?: () => AppServer
+}
+
+export interface Server {
+  app: () => ExpressAppServer
+  registry: (path: string) => void,
+  router: (router: _Router, params: { mountPath?: string}) => void,
+  middleware: (module: ExpressMiddleware) => void,
+  monitoring: (moduleName: string, module: any) => void,
+  start: () => Promise<ExpressAppServer>;
+  stop: () => void
+}
+
+  export function createServer(): Server
 }
 
 declare module 'flanc/errors' {

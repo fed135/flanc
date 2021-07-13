@@ -4,7 +4,7 @@
   "private": true,
   "description": "Utils for testing",
   "devDependencies": {
-    "flanc": "0.0.0",
+    "flanc": "^0.0.1",
     "@types/jest": "^24.0.19",
     "config": "^3.3.0",
     "jest": "^24.9.0",

@@ -1,5 +1,5 @@
 import { createServer } from 'flanc/server';
-import JSONRouter from '@flanc/router-jsonapi';
+import JSONRouter from '@flanc/router-json';
 
 /**
  * First, prepare the main app router

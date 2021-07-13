@@ -42,6 +42,7 @@
   },
   "homepage": "https://github.com/get<project_name>/<project_name>#readme",
   "dependencies": {
+    "@flanc/router-json": "^0.0.1",
     "config": "^3.3.0",
     "dotenv": "^9.0.0",
     "flanc": "^0.0.1",

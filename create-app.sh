@@ -54,6 +54,6 @@ sed -i -e "s/<project_name>/$APP_NAME/g" test/utils/package.json
 # Install
 echo "Installing..."
 
-yarn
+yarn --production
 
 echo "Done."
