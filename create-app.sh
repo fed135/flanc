@@ -40,7 +40,20 @@ if [ "$2" != "-Y" ]; then
 
   git init
 else
-  cp $TEMPLATE_URI/project-template .
+  cp -a $TEMPLATE_URI/project-template/. .
 fi
 
+# Replace tokens
+echo "Replacing tokens..."
+
+sed -i -e "s/<project_name>/$APP_NAME/g" package.json
+sed -i -e "s/<project_name>/$APP_NAME/g" README.md
+sed -i -e "s/<project_name>/$APP_NAME/g" packages/domain/sample/package.json
+sed -i -e "s/<project_name>/$APP_NAME/g" test/utils/package.json
+
+# Install
+echo "Installing..."
+
 yarn
+
+echo "Done."
