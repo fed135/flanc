@@ -1,14 +1,7 @@
-# FLANC
+# <project_name>
 
-- Import routers, middleware, utils and tools to build your enterprise-grade API.
-- Comes pre-loaded with server essentials, `router-json`, folder structure, api documentation, etc.
-- compatible with all monitoring services
+This project was generated via the [Flanc](https://github.com/fed135/flanc) command line. It is pre-loaded with server essentials and a `router-json`.
 
-
-- Built using Typescript
-- Kubernetes-ready
-- Modern domains-driven architecture
-- Monorepo for easier domain driven architecture
 
 ## Install
 
@@ -22,11 +15,8 @@ yarn
 
 To enable logs, use the standard `NODE_DEBUG` flag with the value `FLANC`
 
-You'll also need to point to a Mongo server process with either a 'staging' or a 'prod' db.
-These can also be loaded through `.env` files.
-
 ```bash
-NODE_DEBUG=<project_name> DB_HOST=<my-mongo-host> yarn start
+NODE_DEBUG=flanc yarn start
 ```
 
 ## Test
@@ -46,7 +36,7 @@ The command above will run the following test suites sequentially:
 | Acceptances | `yarn test:acceptance` | Large integration tests, system tests, end-to-end tests. |
 
 
-## Routes
+## Routes and documentation
 
 ### Graphql
 

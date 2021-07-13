@@ -4,14 +4,12 @@ A semi-opinionated API framework for domain-driven monorepos.
 
 ## Key features
 
-- Typescript
-- Linting
-- Test suites
+- Fully written in Typescript
 - Core utils for async, http, caching, dates, encryption, etc.
-- Easy integration with monitoring tools
-- Support for multiple protocols (JSON-API, GraphQL, 
-- Kubernetes-ready
-- Built-in api documentation
+- Easy integration with APM services
+- Support for multiple protocols (JSON-API, GraphQL) and triggers (HTTP, Websocket, SQS)
+- Best deployed on Kubernetes, with Istio in mind
+- Built-in API documentation
 
 ## Getting started
 
