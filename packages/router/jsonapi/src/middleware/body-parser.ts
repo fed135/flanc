@@ -1,8 +1,8 @@
 import crypto from 'crypto';
-import { ExpressRequest } from '@<project_name>/core-util/express-types';
+import { ExpressRequest } from 'flanc/express-types';
 import fileUpload from 'express-fileupload';
 import xml from 'express-xml-bodyparser';
-import { BadRequest, InternalError } from '@<project_name>/core-util/errors';
+import { BadRequest, InternalError } from 'flanc/errors';
 import { json, NextFunction, raw, Response, text, urlencoded } from 'express';
 
 interface VerifiedJsonParserOptions {
