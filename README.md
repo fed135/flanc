@@ -72,7 +72,7 @@ server.start();
 export default server;
 ```
 
-Now next time that you launch the app, a new documentation route should be available: [localhost:9001/docs/jsonapi](http://localhost:9001/docs/jsonapi)
+Now next time that you launch the app, a new documentation route should be available: [localhost:9001/json/docs](http://localhost:9001/json/docs)
 
 Now to make use of this new router, we will create a new domain file
 
@@ -100,7 +100,7 @@ register({
 });
 ```
 
-After restarting your server, your JSON-API documentation page should show your new route, which you will be able to call at [localhost:9001/jsonapi/hello-world/john](http://localhost:9001/jsonapi/hello-world/john)
+After restarting your server, your JSON-API documentation page should show your new route, which you will be able to call at [localhost:9001/json/hello-world/john](http://localhost:9001/json/hello-world/john)
 
 ### Custom responses
 
