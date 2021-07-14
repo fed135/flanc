@@ -8,6 +8,11 @@ import JSONRouter from '@flanc/router-json';
 const server = createServer();
 
 /**
+ * Set app middleware
+ */
+// server.middleware()
+
+/**
  * Set app monitoring
  */
 // server.monitoring();
@@ -22,11 +27,6 @@ server.router(JSONRouter);
  */
 
 server.registry('./packages/domain/registry');
-
-/**
- * Set app middleware
- */
-// server.middleware()
 
 /**
  * Start the server

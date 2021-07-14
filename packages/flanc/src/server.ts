@@ -53,7 +53,7 @@ export function createServer() {
   return {
     app: () => app,
     registry: (path: string) => app._registryLocation = path,
-    router: (router, { mountPath }: { mountPath?: string}) => {
+    router: (router, { mountPath }: { mountPath?: string} = {}) => {
       const routerInstance = router(app, express.Router);
       app._routers.push(routerInstance);
       app.use(mountPath || router.defaultMountPath, routerInstance);

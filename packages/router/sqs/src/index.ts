@@ -126,6 +126,8 @@ function createContext(body: Serializable, receiptHandle: string) {
   };
 }
 
+export default function setupRouter() {}
+
 export function register(route: Route, queueUrl: string, sqsOptions: _SqsOptions) {
   if (!queueUrl) return logger.error(`Cannot register queue "${route.path}" for route ${queueUrl}. It should be a valid url. Route disabled.`);
   if (!(queueUrl in pollers)) createQueuePoller(queueUrl, sqsOptions);

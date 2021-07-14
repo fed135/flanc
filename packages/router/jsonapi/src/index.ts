@@ -23,7 +23,7 @@ export function errorHandler(err, req, res, next) {
   next();
 }
 
-export function setupRouter(RouterConstructor) {
+export default function setupRouter(RouterConstructor) {
   router = new RouterConstructor();
   router._spec = {};
   if (process.env.NODE_ENV !== 'production') router.get('/docs', printDocumentation);

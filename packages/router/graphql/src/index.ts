@@ -68,7 +68,7 @@ const appendScalarToResolvers = (scalars: { [key: string]: (obj: object, args: {
   }
 };
 
-export function setupRouter(RouterConstructor: any) {
+export default function setupRouter(RouterConstructor: any) {
   router = new RouterConstructor();
   router.use(json());
   router.use(operationId);
