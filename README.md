@@ -1,6 +1,6 @@
 # FLANC
 
-A semi-opinionated API framework for domain-driven monorepos.
+*A semi-opinionated API template*
 
 ## Key features
 
