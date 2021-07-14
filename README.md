@@ -15,22 +15,22 @@ A semi-opinionated API framework for domain-driven monorepos.
 
 ### Installation
 
-To get started, all you need to do is install the CLI package and run the create-app script.
+To get started, you need to execute the create-app script, which will pull the latest boilerplate version from github and set up you local environement.
 
-```bash
-npm install -g @flanc/create-app
-create-flanc-app my-awesome-api
-```
+To do that, you may either download and run the script manually, or use the following cURL or Wget command:
 
-This will clone the template and tools, making you ready to start coding logic and not have to worry about project setup.
+curl -o- https://raw.githubusercontent.com/fed135/flanc/v0.1.0/create-app.sh | bash
+wget -qO- https://raw.githubusercontent.com/fed135/flanc/v0.1.0/create-app.sh | bash
 
-To launch your API, just run:
+The script will confirm the name and location where you wan to create the project and will install everything.
+
+At the end of which you'll be able to launch your API by running:
 
 ```bash
 yarn start
 ```
 
-Your healthcheck route will be [localhost:9001/healthcheck](http://localhost:9001/healthcheck)
+Your healthcheck route will be at [localhost:9001/healthcheck](http://localhost:9001/healthcheck), confirming that everything went well!
 
 ### Creating a new endpoint
 
