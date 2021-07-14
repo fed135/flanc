@@ -4,6 +4,6 @@
   "description": "Sample domain",
   "private": true,
   "dependencies": {
-      "@flanc/router-json": "^0.0.7"
+      "@flanc/router-json": "^0.0.8"
   }
 }
