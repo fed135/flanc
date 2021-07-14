@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Current dire helper
+# Current dir helper
 
 a="/$0"; a=${a%/*}; a=${a#/}; a=${a:-.}; BASEDIR=$(cd "$a"; pwd)
 
@@ -54,6 +54,6 @@ sed -i -e "s/<project_name>/$APP_NAME/g" test/utils/package.json
 # Install
 echo "Installing..."
 
-yarn --production
+yarn
 
 echo "Done."
