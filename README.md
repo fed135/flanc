@@ -19,8 +19,12 @@ To get started, you need to execute the create-app script, which will pull the l
 
 To do that, you may either download and run the script manually, or use the following cURL or Wget command:
 
+```sh
 curl -o- https://raw.githubusercontent.com/fed135/flanc/v0.1.0/create-app.sh | bash
+```
+```sh
 wget -qO- https://raw.githubusercontent.com/fed135/flanc/v0.1.0/create-app.sh | bash
+```
 
 The script will confirm the name and location where you wan to create the project and will install everything.
 
