@@ -1,6 +1,6 @@
 {
     "name": "flanc",
-    "version": "0.0.4",
+    "version": "0.0.5",
     "description": "The core engine and utils for flanc apis",
     "license": "Apache-2.0",
     "keywords": [

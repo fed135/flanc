@@ -7,6 +7,7 @@ import { createServer as createHTTPServer, Server } from 'http';
 import { createServer as createHTTPSServer, Server as SecureServer } from 'https';
 import Logger from './logging';
 import { NotFound } from './errors';
+import { resolve as resolvePath } from 'path';
 import security from './security';
 import { setMonitoringModule } from './monitoring';
 import { ExpressAppServer, ExpressMiddleware, ExpressRequest } from 'flanc/express-types';
@@ -50,6 +51,9 @@ export function createServer() {
   app._registryLocation;
   app._extraMiddleware = [];
 
+  healthcheck(app);
+  applyPlugins(app);
+
   return {
     app: () => app,
     registry: (path: string) => app._registryLocation = path,
@@ -58,16 +62,11 @@ export function createServer() {
       app._routers.push(routerInstance);
       app.use(mountPath || router.defaultMountPath, routerInstance);
     },
-    middleware: (module) => app._extraMiddleware.push(module),
+    middleware: (module) => app.use(module),
     monitoring: (moduleName: string, module) => setMonitoringModule(moduleName, module),
     start: () => {
       return Promise.resolve()
-        .then(() => {
-          applyPlugins(app);
-          import(app._registryLocation);
-          app._extraMiddleware.forEach((module) => app.use(module));
-          healthcheck(app);
-        })
+        .then(() => import(resolvePath(app._registryLocation)))
         .then(() => Promise.all(app._routers.map((router) => router.start())))
         .then(() => {
           loadErrorHandlers(app);

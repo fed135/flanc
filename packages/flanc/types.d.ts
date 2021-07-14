@@ -209,11 +209,11 @@ type AttributeParams = {
   }
 
 interface _Router {
-  (params: any): _RouterInstance 
+  (params: any): _RouterInstance
+  register: (route: _Route) => void
 }
 
 interface _RouterInstance {
-  register: (route: _Route) => void
   start: () => Promise<any>
   stop: () => Promise<any>
 }
@@ -280,7 +280,7 @@ interface AppServer extends _Server {
 export interface Server {
   app: () => ExpressAppServer
   registry: (path: string) => void,
-  router: (router: _Router, params: { mountPath?: string}) => void,
+  router: (router: _Router, params?: { mountPath?: string}) => void,
   middleware: (module: ExpressMiddleware) => void,
   monitoring: (moduleName: string, module: any) => void,
   start: () => Promise<ExpressAppServer>;

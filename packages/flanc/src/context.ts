@@ -30,7 +30,7 @@ export default function context(req: ExpressRequest, res: ExpressResponse, next:
     value: res,
   });
 
-  modules?.newrelic.addCustomAttribute('x-request-id', req.context.id);
+  modules?.newrelic?.addCustomAttribute('x-request-id', req.context.id);
 
   next();
 }

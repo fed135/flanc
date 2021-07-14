@@ -4,12 +4,14 @@ import { register as commonRouterRegister } from 'flanc/router-commons';
 import { render as renderDocumentation } from 'flanc/router-commons/documentation';
 import { _JsonApiRoute } from '../types';
 
+let router;
+
 function formatter(data) {
   return (typeof data === 'string') ? data : JSON.stringify(data);
 }
 
 export default function Router(app, RouterConstructor: any) {
-  const router = new RouterConstructor();
+  router = RouterConstructor();
   router._spec = {};
 
   function printDocumentation(req, res) {
@@ -19,19 +21,19 @@ export default function Router(app, RouterConstructor: any) {
 
   if (process.env.NODE_ENV !== 'production') router.get('/docs', printDocumentation);
 
-  router.register = function register(route: _JsonApiRoute) {
-    commonRouterRegister(route, router, {
-      supportedMethods: ['get', 'post', 'patch', 'delete'],
-      responseHeaders: { 'content-type': 'application/json' },
-      formatError: (error) => formatter(error),
-      formatResponse: (response) => formatter(response),
-    });
-  }
-
   router.start = function start() {}
   router.stop = function stop() {}
 
   return router;
 }
 
-Router.defaultMountPath = '/jsonapi';
+export function register(route: _JsonApiRoute) {
+  commonRouterRegister(route, router, {
+    supportedMethods: ['get', 'post', 'patch', 'delete'],
+    responseHeaders: { 'content-type': 'application/json' },
+    formatError: (error) => formatter(error),
+    formatResponse: (response) => formatter(response),
+  });
+}
+
+Router.defaultMountPath = '/json';

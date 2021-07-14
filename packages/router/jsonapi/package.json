@@ -1,6 +1,6 @@
 {
     "name": "@flanc/router-json",
-    "version": "0.0.4",
+    "version": "0.0.6",
     "private": true,
     "description": "The openapi router for flanc apis",
     "license": "Apache-2.0",
