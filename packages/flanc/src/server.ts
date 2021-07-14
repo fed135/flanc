@@ -64,7 +64,7 @@ export function createServer() {
       return Promise.resolve()
         .then(() => {
           applyPlugins(app);
-          require(app._registryLocation);
+          import(app._registryLocation);
           app._extraMiddleware.forEach((module) => app.use(module));
           healthcheck(app);
         })

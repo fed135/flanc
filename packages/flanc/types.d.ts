@@ -209,10 +209,15 @@ type AttributeParams = {
   }
 
 interface _Router {
-  setupRouter: (constructor: any) => void 
-  register: (route: _Route) => void
+  (params: any): _RouterInstance 
 }
-  
+
+interface _RouterInstance {
+  register: (route: _Route) => void
+  start: () => Promise<any>
+  stop: () => Promise<any>
+}
+
 declare module 'config' {
   var config: ConfigDefinition; // eslint-disable-line vars-on-top
   export default config;
