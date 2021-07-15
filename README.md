@@ -42,10 +42,11 @@ FLANC does not have any routers out of the box, which means that you will have t
 
 Here's a list of routers that you can pick from:
 
-| [JSON-API](https://npmjs.org) |
-| [GraphQL](https://npmjs.org) |
-| [SQS](https://npmjs.org) |
-| [WebSocket](https://npmjs.org) |
+- [JSON-API](https://www.npmjs.com/package/@flanc/router-json)
+- [HTML](https://www.npmjs.com/package/@flanc/router-html)
+- [GraphQL](https://www.npmjs.com/package/@flanc/router-graphql)
+- [SQS](https://www.npmjs.com/package/@flanc/router-sqs)
+- [WebSocket](https://www.npmjs.com/package/@flanc/router-ws)
 
 For example, if you want to create a new JSON endpoint, you would install the package at the root level of the project
 
