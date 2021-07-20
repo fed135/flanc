@@ -133,31 +133,38 @@ You may want to catch them to modify the error content or to gracefully degrade 
 
 ## Why is this important ?
 
-This project aims to address a number of of pain-points that affect companies of all sizes.
-
-### Monorepos
-
-Instead of spreading your resources thin across a sea of micro-services and adding massive maintenance overhead monorepos offer a clear way to organise code and dependencies without creating bottlenecks during development.
-
-### Domain-driven design
-
-A domain-driven design is a seperation of concerns in terms of app functionality rather than grouping files by type (ex: putting all controllers together). What this allows is a more intuitive approach to development where file changes for a given feature are all in one place- and should not affect other features.
-
-Combining monorepos with the domain-driven design approach gives us a platform that is extremely flexible and scalable in terms of functionality and team composition.
+This project aims to address a number of of pain-points that affect companies of all sizes though the use of [domain-driven design architecure]() and [monorepos]().
 
 ### Semi-opinionated ?
 
-FLANC proposes a rigid folder structure, where there is a clear split between domain and resource packages, a guide for package morphology, batteries-included routing, documentation, contexts and tests.
-Beyond that, you are free to structure your code and logic to your liking, import the libraries that you are used to work with, your databases, ORMs, etc.
+FLANC proposes a rigid domain-driven project structure, a guide for package morphology, batteries-included routing, documentation, contexts and tests.
+Beyond that, you are free to structure your business logic to your liking, import the libraries that you are used to work with, your databases, ORMs, etc.
 
 ### How experimental is this ?
 
-The concept has been battle-tested in multiple scenarios, from startups to Fortune 500 companies, all with great success. What's still to be refined is the actual implementation, which had to be redone from scratch.
+The concept has been thouroughly battle-tested over the past 5 years, from startups to Fortune 500 companies. What's new is the actual implementation, which had to be redone from scratch.
 
 ## Contributing
 
 Please do! This project is all about facilitating collaboration on complex projects and we intend to set the example ourselves.
 If you want to contribute, feel free to ping @fed135.
+
+## Roadmap
+
+** Version 0.1.0 **
+
+- [ ] Finalize GraphQL router
+- [ ] Finalize SQS router
+- [ ] Finalize HTML router
+- [ ] Finalize Websocket router
+- [ ] Add examples for resource modules and relationships in the boilerplate app
+- [ ] Create a scaffolding script to accelerate resource/domain creation in the boilerplate app
+- [ ] Test party
+
+** Version 0.2.0 **
+
+- [ ] More comprehensive error codes
+- [ ] Docs Website
 
 ## License
 

@@ -1,5 +1,6 @@
 import { createServer } from 'flanc/server';
 import JSONRouter from '@flanc/router-json';
+import GraphQLRouter from '@flanc/router-graphql';
 
 /**
  * First, prepare the main app router
@@ -21,6 +22,7 @@ const server = createServer();
  * Load subrouters
  */
 server.router(JSONRouter);
+server.router(GraphQLRouter);
 
 /**
  * Declare the registry of domains to load

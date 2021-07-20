@@ -24,6 +24,8 @@ function applyPlugins(app: ExpressAppServer): ExpressAppServer {
 function loadErrorHandlers(app: ExpressAppServer): ExpressAppServer {
   // @ts-ignore
   app.use(function routeNotFoundHandler(req: ExpressRequest) {
+    if (process.env.NODE_ENV !== 'production') logger.warn(`Route ${req.path} was not found, was is added to the registry ?`);
+
     throw NotFound('The requested content was not found.', req.context);
   });
 

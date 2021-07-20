@@ -43,6 +43,10 @@ const schemas: SchemaAccumulator = {
   resolvers: {},
 };
 
+const pathMap = {};
+
+let router;
+
 const appendScalarToResolvers = (scalars: { [key: string]: (obj: object, args: { [key: string]: Serializable }) => any}) => {
   if (Object.keys(scalars).length === 0) {
     return;
@@ -65,9 +69,7 @@ const appendScalarToResolvers = (scalars: { [key: string]: (obj: object, args: {
 };
 
 export default function Router(app, RouterConstructor: any) {
-  const pathMap = {};
-
-  const router = RouterConstructor();
+  router = RouterConstructor();
   router.use(json());
   router.use(operationId);
   router.use(monitoring);
@@ -103,41 +105,45 @@ export default function Router(app, RouterConstructor: any) {
     });
     apolloServer.applyMiddleware({ app: router, path: '/' });
   }
-  
-  router.register = function register(schema: object, queries: { Query?: string, Mutation?: string, Scalar?: string}, resolver: SchemaResolvers) {
-    const resolverScalars = {};
-  
-    append(schemas.master, schemas.resolvers, resolverScalars, schema);
-  
-    if (queries.Query) schemas.queries.push(queries.Query);
-    if (queries.Mutation) schemas.mutations.push(queries.Mutation);
-    if (queries.Scalar) schemas.scalar += queries.Scalar;
-  
-    const addResolversAndMiddlewares = (schemaDefinition: { Query?: SchemaResolvers['Query'], Mutation?: SchemaResolvers['Mutation'] }, resolverDefinition) => {
-      if (!schemaDefinition) return;
-  
-      for (const type in schemaDefinition) {
-        if (schemaDefinition.hasOwnProperty(type)) {
-          if (typeof schemaDefinition[type].resolver !== 'function') throw new Error(`${type} resolver needs to be a function.`);
-          resolverDefinition = Object.assign(resolverDefinition || {}, { [type]: schemaDefinition[type].resolver });
-          if (schemaDefinition[type].middlewares) pathMap[type] = schemaDefinition[type].middlewares;
-        }
-      }
-  
-      return resolverDefinition;
-    };
-  
-    if (resolver.Mutation) schemas.resolvers.Mutation = addResolversAndMiddlewares(resolver.Mutation, schemas.resolvers.Mutation);
-    if (resolver.Query) schemas.resolvers.Query = addResolversAndMiddlewares(resolver.Query, schemas.resolvers.Query);
-  
-    if (resolver.Scalar) appendScalarToResolvers(resolver.Scalar);
-  
-    if (Object.keys(resolverScalars).length > 0) appendScalarToResolvers(resolverScalars);
-  }
 
   router.stop = function stop() {}
 
   return router;
+}
+
+export function register(schema: object, queries: { Query?: string, Mutation?: string, Scalar?: string}, resolver: SchemaResolvers) {
+  const resolverScalars = {};
+
+  append(schemas.master, schemas.resolvers, resolverScalars, schema);
+
+  if (queries.Query) schemas.queries.push(queries.Query);
+  if (queries.Mutation) schemas.mutations.push(queries.Mutation);
+  if (queries.Scalar) schemas.scalar += queries.Scalar;
+
+  function buildResolverParams(resolver) {
+    return (_, params, context: Context) => resolver(Object.assign(context, { params }));
+  }
+
+  function addResolversAndMiddlewares(schemaDefinition: { Query?: SchemaResolvers['Query'], Mutation?: SchemaResolvers['Mutation'] }, resolverDefinition) {
+    if (!schemaDefinition) return;
+
+    for (const type in schemaDefinition) {
+      if (schemaDefinition.hasOwnProperty(type)) {
+        if (typeof schemaDefinition[type].resolver !== 'function') throw new Error(`${type} resolver needs to be a function.`);
+        resolverDefinition = Object.assign(resolverDefinition || {}, { [type]: buildResolverParams(schemaDefinition[type].resolver) });
+        if (schemaDefinition[type].middlewares) pathMap[type] = schemaDefinition[type].middlewares;
+      }
+    }
+
+    return resolverDefinition;
+  };
+
+  if (resolver.Mutation) schemas.resolvers.Mutation = addResolversAndMiddlewares(resolver.Mutation, schemas.resolvers.Mutation);
+  if (resolver.Query) schemas.resolvers.Query = addResolversAndMiddlewares(resolver.Query, schemas.resolvers.Query);
+
+  if (resolver.Scalar) appendScalarToResolvers(resolver.Scalar);
+
+  if (Object.keys(resolverScalars).length > 0) appendScalarToResolvers(resolverScalars);
 }
 
 Router.defaultMountPath = '/graphql';
