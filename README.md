@@ -1,6 +1,6 @@
 # FLANC
 
-A semi-opinionated API framework for domain-driven monorepos.
+*A semi-opinionated API template*
 
 ## Key features
 
@@ -20,10 +20,10 @@ To get started, you need to execute the create-app script, which will pull the l
 To do that, you may either download and run the script manually, or use the following cURL or Wget command:
 
 ```sh
-curl -o- https://raw.githubusercontent.com/fed135/flanc/v0.1.0/create-app.sh | bash
+bash <(curl -o- https://raw.githubusercontent.com/fed135/flanc/v0.1.0/create-app.sh) your-project-name
 ```
 ```sh
-wget -qO- https://raw.githubusercontent.com/fed135/flanc/v0.1.0/create-app.sh | bash
+bash <(wget -qO- https://raw.githubusercontent.com/fed135/flanc/v0.1.0/create-app.sh) your-project-name
 ```
 
 The script will confirm the name and location where you wan to create the project and will install everything.
@@ -42,10 +42,11 @@ FLANC does not have any routers out of the box, which means that you will have t
 
 Here's a list of routers that you can pick from:
 
-| [JSON-API](https://npmjs.org) |
-| [GraphQL](https://npmjs.org) |
-| [SQS](https://npmjs.org) |
-| [WebSocket](https://npmjs.org) |
+- [JSON-API](https://www.npmjs.com/package/@flanc/router-json)
+- [HTML](https://www.npmjs.com/package/@flanc/router-html)
+- [GraphQL](https://www.npmjs.com/package/@flanc/router-graphql)
+- [SQS](https://www.npmjs.com/package/@flanc/router-sqs)
+- [WebSocket](https://www.npmjs.com/package/@flanc/router-ws)
 
 For example, if you want to create a new JSON endpoint, you would install the package at the root level of the project
 
@@ -72,7 +73,7 @@ server.start();
 export default server;
 ```
 
-Now next time that you launch the app, a new documentation route should be available: [localhost:9001/docs/jsonapi](http://localhost:9001/docs/jsonapi)
+Now next time that you launch the app, a new documentation route should be available: [localhost:9001/json/docs](http://localhost:9001/json/docs)
 
 Now to make use of this new router, we will create a new domain file
 
@@ -100,7 +101,7 @@ register({
 });
 ```
 
-After restarting your server, your JSON-API documentation page should show your new route, which you will be able to call at [localhost:9001/jsonapi/hello-world/john](http://localhost:9001/jsonapi/hello-world/john)
+After restarting your server, your JSON-API documentation page should show your new route, which you will be able to call at [localhost:9001/json/hello-world/john](http://localhost:9001/json/hello-world/john)
 
 ### Custom responses
 
