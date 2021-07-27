@@ -24,7 +24,9 @@ type SchemaResolvers = {
       middlewares: ((req, res, next) => any)[]
     }
   }
-  [key: string]: any // For scalar type resolvers
+  Scalar?: {
+    [key: string]: () => any
+  }
 }
 
 type SchemaAccumulator = {

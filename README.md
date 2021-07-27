@@ -153,17 +153,20 @@ If you want to contribute, feel free to ping @fed135.
 
 ** Version 0.1.0 **
 
-- [ ] Finalize GraphQL router
-- [ ] Finalize SQS router
-- [ ] Finalize HTML router
-- [ ] Finalize Websocket router
-- [ ] Add examples for resource modules and relationships in the boilerplate app
+- [ ] Finalize GraphQL router + model-less graphql routes
+- [ ] Add examples for resource modules and relationships, full with DB + ha-store in the boilerplate app
 - [ ] Create a scaffolding script to accelerate resource/domain creation in the boilerplate app
-- [ ] Test party
+- [ ] Test GraphQL common scenarios and syntax (filter, sort, etc)
+- [ ] Test Open-API spec, scenarios, syntax and swagger output in Apigee
+- [ ] Global Test party
 
 ** Version 0.2.0 **
 
 - [ ] More comprehensive error codes
+- [ ] Finalize SQS router
+- [ ] Finalize HTML router
+- [ ] Finalize Websocket router (One context per socket connection)
+- [ ] Define vision, objective, top selling points
 - [ ] Docs Website
 
 ## License

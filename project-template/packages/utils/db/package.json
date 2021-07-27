@@ -1,0 +1,9 @@
+{
+    "name": "@<project_name>/db",
+    "version": "0.0.0",
+    "description": "Database utilities",
+    "private": true,
+    "dependencies": {
+       "postgres": "^1.0.0"
+    }
+  }

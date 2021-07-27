@@ -14,6 +14,8 @@ type AttributeParams = {
     resolver?: (rawData: any) => any
     items?: AttributeParams
     description?: string
+    scalarType?: any
+    graphqlEntity?: string
   };
 
   type SerializableParams = { [key: string]: Serializable };
@@ -79,6 +81,8 @@ type AttributeParams = {
     type: string
     attributes: { [key: string]: AttributeParams }
     relationships?: { [relationship: string]: RelationshipParams<any> }
+    members?: { [method: string]: () => {}}
+    schema: string
   }
 
   type OpenApiEntityIdentifier = {

@@ -1,0 +1,9 @@
+{
+    "name": "@<project_name>/resource-item",
+    "version": "0.0.0",
+    "description": "Resource for sample items",
+    "private": true,
+    "dependencies": {
+       "flanc": "^0.0.7"
+    }
+  }
