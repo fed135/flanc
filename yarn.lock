@@ -95,23 +95,23 @@
     apollo-server-express "^2.24.0"
     config "^3.3.0"
     express "^4.17.1"
-    flanc "file:../../../Library/Caches/Yarn/v6/npm-@flanc-router-graphql-0.0.1-5392e8d9-97af-41da-b257-fbe98437489b-1626295221674/node_modules/flanc"
+    flanc "file:../../../Library/Caches/Yarn/v6/npm-@flanc-router-graphql-0.0.1-d892a5d2-d8d8-4e43-8366-84381bfaf0d0-1635271804518/node_modules/flanc"
     graphql "^15.5.0"
 
 "@flanc/router-html@file:packages/router/html":
   version "0.0.1"
   dependencies:
     config "^3.3.0"
-    flanc "file:../../../Library/Caches/Yarn/v6/npm-@flanc-router-html-0.0.1-df37f84f-3fb0-4d93-bbe7-6ec56e37cce3-1626295221708/node_modules/flanc"
+    flanc "file:../../../Library/Caches/Yarn/v6/npm-@flanc-router-html-0.0.1-596c8756-ed1a-4d8b-b518-852337fa23f8-1635271805412/node_modules/flanc"
 
 "@flanc/router-json@file:packages/router/jsonapi":
-  version "0.0.4"
+  version "0.0.8"
   dependencies:
     config "^3.3.0"
     express "^4.17.1"
     express-fileupload "^1.2.1"
     express-xml-bodyparser "^0.3.0"
-    flanc "file:../../../Library/Caches/Yarn/v6/npm-@flanc-router-json-0.0.4-7ac7a6a9-949b-4868-bd64-9bf514bbacb0-1626295221710/node_modules/flanc"
+    flanc "file:../../../Library/Caches/Yarn/v6/npm-@flanc-router-json-0.0.8-3418a062-74d0-447f-a48d-8eb4df8d72d2-1635271805415/node_modules/flanc"
     swagger-route-validator "^1.0.2"
 
 "@flanc/router-sqs@file:packages/router/sqs":
@@ -119,7 +119,7 @@
   dependencies:
     aws-sdk "^2.902.0"
     config "^3.3.0"
-    flanc "file:../../../Library/Caches/Yarn/v6/npm-@flanc-router-sqs-0.0.0-d83aa6b7-cc7d-4b37-9d6a-e097dd676866-1626295221711/node_modules/flanc"
+    flanc "file:../../../Library/Caches/Yarn/v6/npm-@flanc-router-sqs-0.0.0-cfd2acc1-bb88-4176-9627-8de67500d089-1635271805424/node_modules/flanc"
     uuid "^8.3.0"
 
 "@humanwhocodes/config-array@^0.5.0":
@@ -821,13 +821,6 @@ aws-sdk@^2.902.0:
     uuid "3.3.2"
     xml2js "0.4.19"
 
-axios@^0.21.1:
-  version "0.21.1"
-  resolved "https://registry.yarnpkg.com/axios/-/axios-0.21.1.tgz#22563481962f4d6bde9a76d516ef0e5d3c09b2b8"
-  integrity sha512-dKQiRHxGD9PPRIUNIWvZhPTPpl1rf/OxTYKsqKUDjBwYylTvV7SjSHJb9ratfyzM6wCdLCOYLzs73qpg5c4iGA==
-  dependencies:
-    follow-redirects "^1.10.0"
-
 backo2@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/backo2/-/backo2-1.0.2.tgz#31ab1ac8b129363463e35b3ebb69f4dfcfba7947"
@@ -1510,19 +1503,18 @@ find-up@^2.0.0, find-up@^2.1.0:
     locate-path "^2.0.0"
 
 "flanc@file:packages/flanc":
-  version "0.0.4"
+  version "0.0.7"
   dependencies:
-    axios "^0.21.1"
     config "^3.3.0"
     express "^4.17.1"
     ha-store "^3.0.0"
     i18next "^20.2.0"
     i18next-node-fs-backend "^2.1.3"
     jsonwebtoken "^8.5.1"
-    lodash.get "^4.4.2"
     luxon "^1.26.0"
     stoppable "^1.1.0"
     swagger-route-validator "^1.0.2"
+    undici "^4.8.1"
     uuid "^8.3.0"
     uuid-validate "^0.0.3"
 
@@ -1538,11 +1530,6 @@ flatted@^3.1.0:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/flatted/-/flatted-3.2.1.tgz#bbef080d95fca6709362c73044a1634f7c6e7d05"
   integrity sha512-OMQjaErSFHmHqZe+PSidH5n8j3O0F2DdnVh8JB4j4eUQ2k6KvB0qGfrKIhapvez5JerBbmWkaLYUYWISaESoXg==
-
-follow-redirects@^1.10.0:
-  version "1.14.1"
-  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.14.1.tgz#d9114ded0a1cfdd334e164e6662ad02bfd91ff43"
-  integrity sha512-HWqDgT7ZEkqRzBvc2s64vSZ/hfOceEol3ac/7tKwzuvEyWx3/4UegXh5oBOIotkGsObyk3xznnSRVADBgWSQVg==
 
 for-each@^0.3.3:
   version "0.3.3"
@@ -2066,11 +2053,6 @@ lodash.clonedeep@^4.5.0:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/lodash.clonedeep/-/lodash.clonedeep-4.5.0.tgz#e23f3f9c4f8fbdde872529c1071857a086e5ccef"
   integrity sha1-4j8/nE+Pvd6HJSnBBxhXoIblzO8=
-
-lodash.get@^4.4.2:
-  version "4.4.2"
-  resolved "https://registry.yarnpkg.com/lodash.get/-/lodash.get-4.4.2.tgz#2d177f652fa31e939b4438d5341499dfa3825e99"
-  integrity sha1-LRd/ZS+jHpObRDjVNBSZ36OCXpk=
 
 lodash.includes@^4.3.0:
   version "4.3.0"
@@ -2949,6 +2931,11 @@ unbox-primitive@^1.0.1:
     has-bigints "^1.0.1"
     has-symbols "^1.0.2"
     which-boxed-primitive "^1.0.2"
+
+undici@^4.8.1:
+  version "4.8.1"
+  resolved "https://registry.yarnpkg.com/undici/-/undici-4.8.1.tgz#37b6e94e497f7851f3220858acfe04dc48dccd05"
+  integrity sha512-0HYfUmepa5euTv3ewj9OqJDiBrZrBEr4o8HPdNHeWOsPCLLXZSBVovW+D3D1LoFeGXhe5Bm2V/e7YJatUjeWfQ==
 
 unpipe@1.0.0, unpipe@~1.0.0:
   version "1.0.0"
