@@ -1,18 +1,13 @@
-import jwt from 'jsonwebtoken';
+import { createVerifier } from 'fast-jwt';
+
+const decoders = {};
+
+function createDecoder(key) {
+  decoders[key] = createVerifier(key);
+  return decoders[key];
+}
 
 export function verifyToken(token: string, key: string): UserToken {
-  try {
-    const { userId, id, exp, roles } = jwt.verify(token, key);
-
-    if (!userId) throw new Error('Missing userId or legacyId');
-
-    return {
-      id: id || null,
-      expires: exp,
-      token,
-      ...(roles && { roles }),
-    };
-  } catch (e) {
-    throw new Error(`Invalid Token: ${e.message}`);
-  }
+  const decoder = decoders[key] || createDecoder(key);
+  return decoder(token);
 }
