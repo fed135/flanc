@@ -1,6 +1,6 @@
+import { ApiError } from './errors';
 import axios from 'axios';
 import config from 'config';
-import { ApiError } from './errors';
 import { to } from './async';
 
 export async function fetch(service: Service, options: RequestOptions, contexts: _Context | _Context[]): Promise<any> {

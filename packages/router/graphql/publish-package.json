@@ -13,8 +13,9 @@
         "apollo-server-express": "^2.24.0",
         "config": "^3.3.0",
         "express": "^4.17.1",
-        "flanc": "^0.0.1",
-        "graphql": "^15.5.0"
+        "flanc": "^0.0.7",
+        "graphql": "^15.5.0",
+        "uuid-validate": "^0.0.3"
     },
     "devDependencies": {
         "typescript": "^4.2.4"

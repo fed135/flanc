@@ -4,6 +4,7 @@
     "description": "Resource for sample items",
     "private": true,
     "dependencies": {
+      "@flanc/router-graphql": "0.0.1",
        "flanc": "^0.0.7"
     }
   }

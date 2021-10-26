@@ -1,15 +1,5 @@
 import { DateTime } from 'luxon';
 
-export enum Days {
-  SUNDAY,
-  MONDAY,
-  TUESDAY,
-  WEDNESDAY,
-  THURSDAY,
-  FRIDAY,
-  SATURDAY,
-}
-
 export const midnight = { hour: 0, minute: 0, second: 0, millisecond: 0 };
 
 export function setTimezone(timezone: string) {

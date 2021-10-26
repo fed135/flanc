@@ -1,8 +1,8 @@
 /* istanbul ignore file */
 
+import { _JsonApiRoute } from '../types';
 import { register as commonRouterRegister } from 'flanc/router-commons';
 import { render as renderDocumentation } from 'flanc/router-commons/documentation';
-import { _JsonApiRoute } from '../types';
 
 let router;
 
@@ -21,8 +21,8 @@ export default function Router(app, RouterConstructor: any) {
 
   if (process.env.NODE_ENV !== 'production') router.get('/docs', printDocumentation);
 
-  router.start = function start() {}
-  router.stop = function stop() {}
+  router.start = function start() {};
+  router.stop = function stop() {};
 
   return router;
 }

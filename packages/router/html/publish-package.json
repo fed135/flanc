@@ -11,7 +11,7 @@
     ],
     "dependencies": {
         "config": "^3.3.0",
-        "flanc": "^0.0.1"
+        "flanc": "^0.0.7"
     },
     "devDependencies": {
         "typescript": "^4.2.4"
