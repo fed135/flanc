@@ -1,14 +1,14 @@
 const openApiTypes = {
-  string: () => 'String', 
+  string: () => 'String',
   number: () => 'Float',
-  integer: () => 'Integer',
-  array: (attribute: AttributeParams, name: string, model: Partial<_Model>) => {
+  integer: () => 'Int',
+  array: (attribute: AttributeParams|RelationshipParams<any>, name: string, model: Partial<_Model>) => {
     if (!attribute?.items?.type) throw new Error(`Missing type definition for ${name} in model ${model.type}`);
     return `[${openApiTypes[attribute.items.type](attribute.items, `${name}0`, model)}]`;
   },
   boolean: () => 'Boolean',
-  object: (attribute: AttributeParams, name: string, model: Partial<_Model>) => {
-    if (!attribute.graphqlEntity) return `${name[0].toUpperCase()+name.substr(1)}`;
+  object: (attribute: AttributeParams|RelationshipParams<any>, name: string) => {
+    if (!attribute.graphqlEntity) return `${name[0].toUpperCase() + name.substr(1)}`;
     return attribute.graphqlEntity;
   },
 };
@@ -21,9 +21,9 @@ export function isValidGraphQLScalar(scalarType) {
 
 export function compile(model: Partial<_Model>): _Model {
   if (!model.type) throw new Error('Could not compile model, missing critical field "type". Give your model a name which will be used by supported routers');
-  
-  let tempSchema = [`type ${model.type[0].toUpperCase()+model.type.substr(1)} {\n`];
-  
+
+  const tempSchema = [`type ${model.type[0].toUpperCase() + model.type.substr(1)} {\n`];
+
   if (model.attributes) {
     for (const attribute in model.attributes) {
       if (model.attributes.hasOwnProperty(attribute)) {
@@ -39,10 +39,9 @@ export function compile(model: Partial<_Model>): _Model {
             if (!isValidGraphQLScalar(model.attributes[attribute].scalarType)) {
               throw new Error(`Scalar type is invalid for attribute ${attribute} on model ${model.type}`);
             }
-            tempSchema.push(model.attributes[attribute].scalarType.name);
-          }
-          else tempSchema.push(openApiTypes[model.attributes[attribute].type](model.attributes[attribute], attribute, model));
-        
+            tempSchema.push(`${attribute}:${model.attributes[attribute].scalarType.name}`);
+          } else tempSchema.push(`${attribute}:${openApiTypes[model.attributes[attribute].type](model.attributes[attribute], attribute, model)}`);
+
           tempSchema.push(model.attributes[attribute].required ? '!\n' : '\n');
         }
       }
@@ -51,9 +50,15 @@ export function compile(model: Partial<_Model>): _Model {
   if (model.relationships) {
     for (const relationship in model.relationships) {
       if (model.relationships.hasOwnProperty(relationship)) {
+        if (typeof model.relationships[relationship].type !== 'string') {
+          throw new Error(`Missing type for relationship "${relationship}" for model "${model.type}"`);
+        }
         if (typeof model.relationships[relationship].resolver !== 'function') {
           throw new Error(`Missing resolver for relationship "${relationship}" for model "${model.type}"`);
         }
+
+        const typeName = model.relationships[relationship].graphqlEntity || model.relationships[relationship].type;
+        tempSchema.push(`${relationship}:${openApiTypes[model.relationships[relationship].type](model.relationships[relationship], typeName, model)}`);
       }
     }
   }
@@ -67,7 +72,7 @@ export function compile(model: Partial<_Model>): _Model {
     }
   }
   if (!model.schema) {
-    model.schema = tempSchema.join('')+'}\n\n';
+    model.schema = tempSchema.join('') + '}\n\n';
   }
 
   return model as _Model;

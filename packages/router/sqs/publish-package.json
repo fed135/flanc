@@ -13,7 +13,7 @@
     "dependencies": {
         "aws-sdk": "^2.902.0",
         "config": "^3.3.0",
-        "flanc": "^0.0.1",
+        "flanc": "^0.0.7",
         "uuid": "^8.3.0"
     },
     "devDependencies": {

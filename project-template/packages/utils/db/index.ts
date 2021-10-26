@@ -1,14 +1,14 @@
-import { createConnection } from 'postgres';
 import config from 'config';
+import postgres from 'postgres';
 
-let instance;
+let sql;
 
-function connect() {
-    return createConnection(config.db);
+export function connect() {
+  return postgres(config.db);
 }
 
-async function query(queryString: string, params?: any[]) {
-    if (!instance) await connect();
+export function query(queryString: string, params?: any[]) {
+  if (!sql) sql = connect();
 
-    instance.query()
+  return sql(queryString, params);
 }

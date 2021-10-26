@@ -1,0 +1,17 @@
+FLANC TODO (Node 16.x, V8 9.3):
+
+#Flanc
+- Error cause in constructor
+- Object.hasOwn() / Object.keys/ Object.values
+- crypto.randomUUID() instead of uuid
+- [Buffer/string/array].at()
+- Remove lodash.get, uuid-validate
+- Replace Axios with undinci
+- Replace express by Polka (?)
+- type file size cleanup
+- replace jsonwebtoken with fast-jwt
+- Apply fixes from node-challenge submissions
+- Try to implement annotations (TS decorators) for ...something... https://www.typescriptlang.org/docs/handbook/decorators.html#property-decorators
+
+#Flanc-graphql
+- Remove Apollo: https://httptoolkit.tech/blog/simple-graphql-server-without-apollo/

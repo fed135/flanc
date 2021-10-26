@@ -1,5 +1,5 @@
-import { register } from '@flanc/router-json';
 import { Context } from 'flanc';
+import { register } from '@flanc/router-json';
 
 register({
   path: '/sample-route',

@@ -1,54 +1,58 @@
-import { sanitize } from 'flanc/data-model';
 import { Context, Model } from 'flanc';
 
 type Schema = {
-  model?: Model,
-  related?: Schema[],
-  scalar?: Serializable,
+  model?: Model
+  related?: Schema[]
+  scalar?: Serializable
   definition?: { [attribute: string]: string }
 }
 
 export function append(
   master: { [key: string]: Serializable },
   resolvers: {},
-  scalars: {},
-  schema: Schema = {}
+  scalars: string[],
+  model: Partial<_Model> = {}
 ) {
-  if (schema.definition) {
-    Object.keys(schema.definition).forEach((key) => {
-      if (!master[key]) master[key] = schema.definition[key];
-    });
+  if (model.schema) {
+    if (!master[model.type]) master[model.type] = model.schema;
   }
 
-  if (schema.related) {
-    schema.related.forEach((related: Schema) => append(master, resolvers, scalars, related));
+  if (model.relationships) {
+    for (const related in model.relationships) {
+      if (model.relationships.hasOwnProperty(related) && model.relationships[related].model) {
+        append(master, resolvers, scalars, model.relationships[related].model);
+      }
+    }
   }
 
-  if (schema.model) {
-    sanitize(schema.model);
-    Object.assign(resolvers, mapAttributesResolver(schema.model));
+  if (model.attributes) {
+    Object.assign(resolvers, mapAttributesResolver(model, scalars));
   }
-
-  if (schema.scalar) Object.assign(scalars, schema.scalar);
 }
 
-export function compile(master: { [key: string]: Serializable }, scalar: string, queries: string[], mutations: string[]) {
+export function compile(master: { [key: string]: Serializable }, scalar: string[], queries: string[], mutations: string[]) {
   const bundledModels = Object.values(master).reduce((acc, curr) => {
     return `${acc}\n${curr}`;
   }, '');
 
   const queryString = queries.length > 0 ? `type Query {\n${queries.join('\n')}\n}` : '';
   const mutationString = mutations.length > 0 ? `type Mutation {\n${mutations.join('\n')}\n}` : '';
-  return `${scalar}\n${bundledModels}\n${queryString}\n${mutationString}`;
+  const scalarString = scalar.map((scalarType) => `scalar ${scalarType}`).join('\n');
+  return `${scalarString}\n${bundledModels}\n${queryString}\n${mutationString}`;
 }
 
-export function mapAttributesResolver(model: Model) {
+export function mapAttributesResolver(model: Partial<_Model>, scalars) {
   const modelName = `${model.type[0].toUpperCase()}${model.type.slice(1)}`;
   const modelResolvers: {[attribute: string]: (obj: any, params?: any, context?: Context) => any} = {};
+  const scalarResolvers = {};
 
   for (const attribute in model.attributes) {
     if (model.attributes.hasOwnProperty(attribute)) {
       modelResolvers[attribute.replace('-', '_')] = model.attributes[attribute].resolver;
+      if (model.attributes[attribute].scalarType && !(scalars.includes(model.attributes[attribute].scalarType.name))) {
+        scalars.push(model.attributes[attribute].scalarType.name);
+        scalarResolvers[model.attributes[attribute].scalarType.name] = model.attributes[attribute].scalarType;
+      }
     }
   }
 
@@ -65,5 +69,6 @@ export function mapAttributesResolver(model: Model) {
 
   return {
     [modelName]: modelResolvers,
+    ...scalarResolvers,
   };
 }

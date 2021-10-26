@@ -33,7 +33,7 @@ type SchemaAccumulator = {
   master: { [key: string]: Serializable }
   queries: string[]
   mutations: string[]
-  scalar: string
+  scalar: string[]
   resolvers: SchemaResolvers
 }
 
@@ -41,34 +41,21 @@ const schemas: SchemaAccumulator = {
   master: {},
   queries: [],
   mutations: [],
-  scalar: '',
+  scalar: [],
   resolvers: {},
 };
+
+export interface ScalarType {
+  name: string
+  description?: string
+  serialize: (value: any) => any
+  parseValue: (value: any) => any
+  parseLiteral: (value: any) => any
+}
 
 const pathMap = {};
 
 let router;
-
-const appendScalarToResolvers = (scalars: { [key: string]: (obj: object, args: { [key: string]: Serializable }) => any}) => {
-  if (Object.keys(scalars).length === 0) {
-    return;
-  }
-
-  for (const [key, body] of Object.entries(scalars)) {
-    const keyExists = schemas.resolvers.hasOwnProperty(key);
-
-    if (!keyExists) {
-      schemas.resolvers[key] = body;
-      continue;
-    }
-
-    const existingBodyMatches = schemas.resolvers[key] === body;
-
-    if (!existingBodyMatches) {
-      throw new Error(`Resolver scalar key '${key}' conflicts. A related dependency might have defined it already.`);
-    }
-  }
-};
 
 export default function Router(app, RouterConstructor: any) {
   router = RouterConstructor();
@@ -86,11 +73,11 @@ export default function Router(app, RouterConstructor: any) {
           method(inbound.req, inbound.res, resolve);
           return promise;
         }
-  
+
         const parsedOperationId = inbound.req.context.operationId.substring(8);
-  
+
         if (!pathMap[parsedOperationId]) return inbound.req.context;
-  
+
         return Promise.all(pathMap[parsedOperationId].map(executeMiddleware)).then((result) => {
           const errorCheck = (result || []).filter((x) => x !== undefined);
           if (errorCheck.length > 0) throw errorCheck[0];
@@ -106,21 +93,18 @@ export default function Router(app, RouterConstructor: any) {
       playground: process.env.NODE_ENV !== 'production',
     });
     apolloServer.applyMiddleware({ app: router, path: '/' });
-  }
+  };
 
-  router.stop = function stop() {}
+  router.stop = function stop() {};
 
   return router;
 }
 
-export function register(schema: object, queries: { Query?: string, Mutation?: string, Scalar?: string}, resolver: SchemaResolvers) {
-  const resolverScalars = {};
-
-  append(schemas.master, schemas.resolvers, resolverScalars, schema);
+export function register(schema: Partial<_Model>, queries: { Query?: string, Mutation?: string, Scalar?: ScalarType}, resolver: SchemaResolvers) {
+  append(schemas.master, schemas.resolvers, schemas.scalar, schema);
 
   if (queries.Query) schemas.queries.push(queries.Query);
   if (queries.Mutation) schemas.mutations.push(queries.Mutation);
-  if (queries.Scalar) schemas.scalar += queries.Scalar;
 
   function buildResolverParams(resolver) {
     return (_, params, context: Context) => resolver(Object.assign(context, { params }));
@@ -138,14 +122,18 @@ export function register(schema: object, queries: { Query?: string, Mutation?: s
     }
 
     return resolverDefinition;
-  };
+  }
 
   if (resolver.Mutation) schemas.resolvers.Mutation = addResolversAndMiddlewares(resolver.Mutation, schemas.resolvers.Mutation);
   if (resolver.Query) schemas.resolvers.Query = addResolversAndMiddlewares(resolver.Query, schemas.resolvers.Query);
-
-  if (resolver.Scalar) appendScalarToResolvers(resolver.Scalar);
-
-  if (Object.keys(resolverScalars).length > 0) appendScalarToResolvers(resolverScalars);
+  if (resolver.Scalar) {
+    for (const scalar in resolver.Scalar) {
+      if (resolver.Scalar.hasOwnProperty(scalar) && !(schemas.scalar.includes(scalar))) {
+        schemas.scalar.push(scalar);
+        schemas.resolvers[scalar] = resolver.Scalar[scalar];
+      }
+    }
+  }
 }
 
 Router.defaultMountPath = '/graphql';

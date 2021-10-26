@@ -111,7 +111,7 @@ export function pageSize(defaultSize: number) {
     format: 'int32',
     minimum: 0,
     maximum: 1000,
-    default: defaultSize ?? 100
+    default: defaultSize ?? 100,
   };
 }
 
@@ -124,7 +124,7 @@ export function nestedPageSize(type: string, options: { defaultSize?: number }) 
     format: 'int32',
     minimum: 0,
     maximum: 20,
-    default: options?.defaultSize ?? 20
+    default: options?.defaultSize ?? 20,
   };
 }
 

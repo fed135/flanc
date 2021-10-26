@@ -3,11 +3,11 @@
 import { deferred } from 'flanc/async';
 import { InternalError } from 'flanc/errors';
 import Logger from 'flanc/logging';
-import { SQS } from 'aws-sdk';
 import { modules } from 'flanc/monitoring';
+import { Route } from 'flanc';
+import { SQS } from 'aws-sdk';
 import { v4 as uuid } from 'uuid';
 import { _SqsOptions, _SqsRoute } from '../types';
-import { Route } from 'flanc';
 
 type Serializable = string | number | boolean | { [key: string]: Serializable } | Array<Serializable>;
 

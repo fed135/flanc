@@ -17,8 +17,6 @@
           "test"
         ],
         "extensions": [
-          ".js",
-          ".json",
           ".ts"
         ]
       }

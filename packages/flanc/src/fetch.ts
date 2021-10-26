@@ -1,5 +1,5 @@
-import config from 'config';
 import { ApiError } from './errors';
+import config from 'config';
 import { request } from 'undici';
 import { to } from './async';
 
