@@ -1,10 +1,9 @@
-import axios from 'axios';
+import undici from 'undici';
 import { fetch } from '../src/fetch';
 import { generateRequestContext } from './express-utils';
 
-jest.mock('axios', () => ({
-  get: jest.fn(() => Promise.resolve({})),
-  post: jest.fn(() => Promise.resolve({})),
+jest.mock('undici', () => ({
+  request: jest.fn(() => Promise.resolve({})),
 }));
 
 afterEach(() => {
@@ -19,7 +18,7 @@ const testContext = generateRequestContext({ headers: { 'x-request-id': '123' } 
 describe('[Packages | Core-util | fetch] interacting with fetch utils', () => {
   describe('when making an invalid call with base parameters', () => {
     test('then the method should return a rejected promise with a <project_name>API error', () => {
-      axios.get.mockImplementationOnce(() => Promise.reject(new Error('Could not establish connection with host')));
+      undici.request.mockImplementationOnce(() => Promise.reject(new Error('Could not establish connection with host')));
 
       return expect(fetch.bind(null, testService, { path: '/' }, testContext)).rejects.toEqual(new Error('Could not establish connection with host'));
     });
@@ -29,7 +28,7 @@ describe('[Packages | Core-util | fetch] interacting with fetch utils', () => {
     test('then the http request library should be invoked with the expected options', () => {
       return fetch(testService, { path: '/' }, testContext)
         .then(() => {
-          expect(axios.get).toHaveBeenCalledWith('http://0.0.0.0/', {
+          expect(undici.request).toHaveBeenCalledWith('http://0.0.0.0/', {
             timeout: 20000,
             params: {},
             headers: { 'x-request-id': '123' },
@@ -39,7 +38,7 @@ describe('[Packages | Core-util | fetch] interacting with fetch utils', () => {
     });
 
     test('then the method should return a valid promise with the data', () => {
-      axios.get.mockImplementationOnce(() => Promise.resolve({ status: 'ok' }));
+      undici.request.mockImplementationOnce(() => Promise.resolve({ status: 'ok' }));
 
       return expect(fetch(testService, { path: '/' }, testContext)).resolves.toEqual({ status: 'ok' });
     });
@@ -64,7 +63,8 @@ describe('[Packages | Core-util | fetch] interacting with fetch utils', () => {
         responseType: 'text',
       }, testContext)
         .then(() => {
-          expect(axios.post).toHaveBeenCalledWith('http://0.0.0.0/foo', { name: 'John Smith' }, {
+          expect(undici.request).toHaveBeenCalledWith('http://0.0.0.0/foo', { name: 'John Smith' }, {
+            method: 'post',
             timeout: 10,
             params: { id: 'abc' },
             headers: { 'x-request-id': '456', 'Accept-Language': 'fr-CA' },

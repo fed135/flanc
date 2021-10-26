@@ -1,6 +1,6 @@
 import { ApiError } from './errors';
-import axios from 'axios';
 import config from 'config';
+import { request } from 'undici';
 import { to } from './async';
 
 export async function fetch(service: Service, options: RequestOptions, contexts: _Context | _Context[]): Promise<any> {
@@ -9,6 +9,7 @@ export async function fetch(service: Service, options: RequestOptions, contexts:
 
   const method = options.method || 'get';
   const args: any = [`${service.host}${service.basePath || ''}${options.path}`, {
+    method,
     params: { ...service.query, ...options.query },
     timeout: options.timeout || config.fetch.requestTimeout,
     headers: { ...service.headers, ...options.headers },
@@ -18,7 +19,7 @@ export async function fetch(service: Service, options: RequestOptions, contexts:
   if (['post', 'put', 'patch'].includes(method)) args.splice(1, 0, options.body);
 
   // @ts-ignore
-  const [err, response] = await to(axios[method](...args));
+  const [err, response] = await to(request(...args));
 
   return responseInterceptor(err, response, service, options, Array.isArray(contexts) ? contexts : [contexts]);
 }
