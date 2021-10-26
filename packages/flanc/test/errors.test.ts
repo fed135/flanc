@@ -1,5 +1,5 @@
-import { generateRequestContext } from './express-utils';
 import { ApiError } from '../src/errors';
+import { generateRequestContext } from './express-utils';
 
 describe('[Packages | Core-util | Errors] generating api errors', () => {
   describe('given we are throwing an api error associated with a request', () => {

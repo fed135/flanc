@@ -1,7 +1,7 @@
-import { AppServer, ExpressAppServer } from 'flanc/express-types';
 import config from 'config';
 import stoppable from 'stoppable';
 import { stopStatisticsPolling } from './store';
+import { AppServer, ExpressAppServer } from 'flanc/express-types';
 
 const shutdownRoutine = {
   active: false,

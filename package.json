@@ -13,8 +13,8 @@
     "scripts": {
       "cleanup": "rm -rf /tmp/flanc-app && mkdir -p /tmp/flanc-app",
       "create-app": "yarn cleanup && cd /tmp/flanc-app && $INIT_CWD/create-app.sh test -Y && NODE_DEBUG=FLANC yarn start",
-      "lint": "eslint --ext .ts --ext .js .",
-      "lint:fix": "eslint --ext .ts --ext .js . --fix",
+      "lint": "eslint --ext .ts .",
+      "lint:fix": "eslint --ext .ts . --fix",
       "test": "yarn workspaces run test",
       "build": "yarn workspaces run build"
     },

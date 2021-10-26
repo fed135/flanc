@@ -15,7 +15,7 @@
         "express": "^4.17.1",
         "express-fileupload": "^1.2.1",
         "express-xml-bodyparser": "^0.3.0",
-        "flanc": "^0.0.1",
+        "flanc": "^0.0.7",
         "swagger-route-validator": "^1.0.2"
     },
     "devDependencies": {
