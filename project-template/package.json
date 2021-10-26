@@ -4,7 +4,7 @@
   "description": "Website api",
   "private": true,
   "workspaces": [
-    "packages/*",
+    "packages/utils/*",
     "packages/domain/*",
     "packages/resource/*",
     "test/*"

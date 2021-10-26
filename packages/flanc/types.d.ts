@@ -46,13 +46,13 @@ type AttributeParams = {
     [key: string]: any
   };
 
-  type RelationshipParams<T> = {
+  interface RelationshipParams<T> extends AttributeParams {
     resolver: (
       src: Serializable,
       { context, params }: ModelArguments
     ) => T
-    model: _Model
-  };
+    model?: _Model
+  }
 
   interface _Context {
     id: string
@@ -82,7 +82,7 @@ type AttributeParams = {
     attributes: { [key: string]: AttributeParams }
     relationships?: { [relationship: string]: RelationshipParams<any> }
     members?: { [method: string]: () => {}}
-    schema: string
+    schema?: string
   }
 
   type OpenApiEntityIdentifier = {
@@ -163,7 +163,7 @@ type AttributeParams = {
     contextId: string
     [key: string]: any
   };
-  
+
   interface ConfigDefinition {
     auth: {
       jwtSecret: string
@@ -226,7 +226,6 @@ declare module 'config' {
   var config: ConfigDefinition; // eslint-disable-line vars-on-top
   export default config;
 }
-  
 
 declare module 'flanc' {
   export interface Context extends _Context {}
@@ -236,7 +235,7 @@ declare module 'flanc' {
 }
 
 declare module 'flanc/server' {
-  import {IncomingMessage, ServerResponse, Server as _Server} from 'http';
+  import { Server as _Server, IncomingMessage, IncomingMessage, Server, ServerResponse, ServerResponse } from 'http';
 
   // @ts-ignore
 interface ExpressAppServer extends Express {
@@ -283,11 +282,11 @@ interface AppServer extends _Server {
 
 export interface Server {
   app: () => ExpressAppServer
-  registry: (path: string) => void,
+  registry: (path: string) => void
   router: (router: _Router, params?: { mountPath?: string}) => void,
-  middleware: (module: ExpressMiddleware) => void,
+  middleware: (module: ExpressMiddleware) => void
   monitoring: (moduleName: string, module: any) => void,
-  start: () => Promise<ExpressAppServer>;
+  start: () => Promise<ExpressAppServer>
   stop: () => void
 }
 
@@ -316,7 +315,7 @@ declare module 'flanc/async' {
 
 declare module 'flanc/monitoring' {
   export function setMonitoringModule(moduleName: string, module: any): void
-  export const modules: any
+  export const modules: any;
 }
 
 declare module 'flanc/logging' {
@@ -324,11 +323,10 @@ declare module 'flanc/logging' {
     log: (message: any, context?: _Context) => void
     warn: (message: any, context?: _Context) => void
     error: (message: any, context?: _Context) => void
-  }
+  };
 }
 
 declare module 'flanc/express-types' {
-  import {IncomingMessage, ServerResponse, Server} from 'http';
 
   // @ts-ignore
   export interface ExpressAppServer extends Express {

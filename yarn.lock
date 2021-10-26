@@ -95,14 +95,15 @@
     apollo-server-express "^2.24.0"
     config "^3.3.0"
     express "^4.17.1"
-    flanc "file:../../../Library/Caches/Yarn/v6/npm-@flanc-router-graphql-0.0.1-75c6e286-4f08-4e57-bd1e-7b93344190b2-1635270447578/node_modules/flanc"
+    flanc "file:../../../Library/Caches/Yarn/v6/npm-@flanc-router-graphql-0.0.1-626dd5fd-cca4-47ac-8dc4-26e62bfe83e8-1635272338058/node_modules/flanc"
     graphql "^15.5.0"
+    uuid-validate "^0.0.3"
 
 "@flanc/router-html@file:packages/router/html":
   version "0.0.1"
   dependencies:
     config "^3.3.0"
-    flanc "file:../../../Library/Caches/Yarn/v6/npm-@flanc-router-html-0.0.1-84c8086f-2272-4761-9f60-02321286ad63-1635270447639/node_modules/flanc"
+    flanc "file:../../../Library/Caches/Yarn/v6/npm-@flanc-router-html-0.0.1-01c9cf00-6e6b-4596-8bcc-d32489abd026-1635272338903/node_modules/flanc"
 
 "@flanc/router-json@file:packages/router/jsonapi":
   version "0.0.8"
@@ -111,7 +112,7 @@
     express "^4.17.1"
     express-fileupload "^1.2.1"
     express-xml-bodyparser "^0.3.0"
-    flanc "file:../../../Library/Caches/Yarn/v6/npm-@flanc-router-json-0.0.8-8cd00a2f-241b-471f-9c73-f88ac9b405f6-1635270447640/node_modules/flanc"
+    flanc "file:../../../Library/Caches/Yarn/v6/npm-@flanc-router-json-0.0.8-423953c4-0f69-4888-ac16-e150f94b8b9b-1635272338906/node_modules/flanc"
     swagger-route-validator "^1.0.2"
 
 "@flanc/router-sqs@file:packages/router/sqs":
@@ -119,7 +120,7 @@
   dependencies:
     aws-sdk "^2.902.0"
     config "^3.3.0"
-    flanc "file:../../../Library/Caches/Yarn/v6/npm-@flanc-router-sqs-0.0.0-279d7ac1-37fc-4f94-9172-7010997613e9-1635270447644/node_modules/flanc"
+    flanc "file:../../../Library/Caches/Yarn/v6/npm-@flanc-router-sqs-0.0.0-37c97681-b8ad-4f8d-8c38-01a88ec119ac-1635272338910/node_modules/flanc"
 
 "@humanwhocodes/config-array@^0.5.0":
   version "0.5.0"
@@ -815,13 +816,6 @@ aws-sdk@^2.902.0:
     uuid "3.3.2"
     xml2js "0.4.19"
 
-axios@^0.21.1:
-  version "0.21.1"
-  resolved "https://registry.yarnpkg.com/axios/-/axios-0.21.1.tgz#22563481962f4d6bde9a76d516ef0e5d3c09b2b8"
-  integrity sha512-dKQiRHxGD9PPRIUNIWvZhPTPpl1rf/OxTYKsqKUDjBwYylTvV7SjSHJb9ratfyzM6wCdLCOYLzs73qpg5c4iGA==
-  dependencies:
-    follow-redirects "^1.10.0"
-
 backo2@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/backo2/-/backo2-1.0.2.tgz#31ab1ac8b129363463e35b3ebb69f4dfcfba7947"
@@ -1506,17 +1500,16 @@ find-up@^2.0.0, find-up@^2.1.0:
 "flanc@file:packages/flanc":
   version "0.0.7"
   dependencies:
-    axios "^0.21.1"
     config "^3.3.0"
     express "^4.17.1"
     ha-store "^3.0.0"
     i18next "^20.2.0"
     i18next-node-fs-backend "^2.1.3"
     jsonwebtoken "^8.5.1"
-    lodash.get "^4.4.2"
     luxon "^1.26.0"
     stoppable "^1.1.0"
     swagger-route-validator "^1.0.2"
+    undici "^4.8.1"
 
 flat-cache@^3.0.4:
   version "3.0.4"
@@ -1530,11 +1523,6 @@ flatted@^3.1.0:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/flatted/-/flatted-3.2.1.tgz#bbef080d95fca6709362c73044a1634f7c6e7d05"
   integrity sha512-OMQjaErSFHmHqZe+PSidH5n8j3O0F2DdnVh8JB4j4eUQ2k6KvB0qGfrKIhapvez5JerBbmWkaLYUYWISaESoXg==
-
-follow-redirects@^1.10.0:
-  version "1.14.1"
-  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.14.1.tgz#d9114ded0a1cfdd334e164e6662ad02bfd91ff43"
-  integrity sha512-HWqDgT7ZEkqRzBvc2s64vSZ/hfOceEol3ac/7tKwzuvEyWx3/4UegXh5oBOIotkGsObyk3xznnSRVADBgWSQVg==
 
 for-each@^0.3.3:
   version "0.3.3"
@@ -2058,11 +2046,6 @@ lodash.clonedeep@^4.5.0:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/lodash.clonedeep/-/lodash.clonedeep-4.5.0.tgz#e23f3f9c4f8fbdde872529c1071857a086e5ccef"
   integrity sha1-4j8/nE+Pvd6HJSnBBxhXoIblzO8=
-
-lodash.get@^4.4.2:
-  version "4.4.2"
-  resolved "https://registry.yarnpkg.com/lodash.get/-/lodash.get-4.4.2.tgz#2d177f652fa31e939b4438d5341499dfa3825e99"
-  integrity sha1-LRd/ZS+jHpObRDjVNBSZ36OCXpk=
 
 lodash.includes@^4.3.0:
   version "4.3.0"
@@ -2942,6 +2925,11 @@ unbox-primitive@^1.0.1:
     has-symbols "^1.0.2"
     which-boxed-primitive "^1.0.2"
 
+undici@^4.8.1:
+  version "4.8.1"
+  resolved "https://registry.yarnpkg.com/undici/-/undici-4.8.1.tgz#37b6e94e497f7851f3220858acfe04dc48dccd05"
+  integrity sha512-0HYfUmepa5euTv3ewj9OqJDiBrZrBEr4o8HPdNHeWOsPCLLXZSBVovW+D3D1LoFeGXhe5Bm2V/e7YJatUjeWfQ==
+
 unpipe@1.0.0, unpipe@~1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/unpipe/-/unpipe-1.0.0.tgz#b2bf4ee8514aae6165b4817829d21b2ef49904ec"
@@ -2977,6 +2965,11 @@ utils-merge@1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/utils-merge/-/utils-merge-1.0.1.tgz#9f95710f50a267947b2ccc124741c1028427e713"
   integrity sha1-n5VxD1CiZ5R7LMwSR0HBAoQn5xM=
+
+uuid-validate@^0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/uuid-validate/-/uuid-validate-0.0.3.tgz#e30617f75dc742a0e4f95012a11540faf9d39ab4"
+  integrity sha512-Fykw5U4eZESbq739BeLvEBFRuJODfrlmjx5eJux7W817LjRaq4b7/i4t2zxQmhcX+fAj4nMfRdTzO4tmwLKn0w==
 
 uuid@3.3.2:
   version "3.3.2"
