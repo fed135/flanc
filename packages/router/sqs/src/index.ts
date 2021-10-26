@@ -6,7 +6,7 @@ import Logger from 'flanc/logging';
 import { modules } from 'flanc/monitoring';
 import { Route } from 'flanc';
 import { SQS } from 'aws-sdk';
-import { v4 as uuid } from 'uuid';
+import { randomUUID as uuid } from 'crypto';
 import { _SqsOptions, _SqsRoute } from '../types';
 
 type Serializable = string | number | boolean | { [key: string]: Serializable } | Array<Serializable>;

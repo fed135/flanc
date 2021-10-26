@@ -95,14 +95,15 @@
     apollo-server-express "^2.24.0"
     config "^3.3.0"
     express "^4.17.1"
-    flanc "file:../../../Library/Caches/Yarn/v6/npm-@flanc-router-graphql-0.0.1-d892a5d2-d8d8-4e43-8366-84381bfaf0d0-1635271804518/node_modules/flanc"
+    flanc "file:../../../Library/Caches/Yarn/v6/npm-@flanc-router-graphql-0.0.1-626dd5fd-cca4-47ac-8dc4-26e62bfe83e8-1635272338058/node_modules/flanc"
     graphql "^15.5.0"
+    uuid-validate "^0.0.3"
 
 "@flanc/router-html@file:packages/router/html":
   version "0.0.1"
   dependencies:
     config "^3.3.0"
-    flanc "file:../../../Library/Caches/Yarn/v6/npm-@flanc-router-html-0.0.1-596c8756-ed1a-4d8b-b518-852337fa23f8-1635271805412/node_modules/flanc"
+    flanc "file:../../../Library/Caches/Yarn/v6/npm-@flanc-router-html-0.0.1-01c9cf00-6e6b-4596-8bcc-d32489abd026-1635272338903/node_modules/flanc"
 
 "@flanc/router-json@file:packages/router/jsonapi":
   version "0.0.8"
@@ -111,7 +112,7 @@
     express "^4.17.1"
     express-fileupload "^1.2.1"
     express-xml-bodyparser "^0.3.0"
-    flanc "file:../../../Library/Caches/Yarn/v6/npm-@flanc-router-json-0.0.8-3418a062-74d0-447f-a48d-8eb4df8d72d2-1635271805415/node_modules/flanc"
+    flanc "file:../../../Library/Caches/Yarn/v6/npm-@flanc-router-json-0.0.8-423953c4-0f69-4888-ac16-e150f94b8b9b-1635272338906/node_modules/flanc"
     swagger-route-validator "^1.0.2"
 
 "@flanc/router-sqs@file:packages/router/sqs":
@@ -119,8 +120,7 @@
   dependencies:
     aws-sdk "^2.902.0"
     config "^3.3.0"
-    flanc "file:../../../Library/Caches/Yarn/v6/npm-@flanc-router-sqs-0.0.0-cfd2acc1-bb88-4176-9627-8de67500d089-1635271805424/node_modules/flanc"
-    uuid "^8.3.0"
+    flanc "file:../../../Library/Caches/Yarn/v6/npm-@flanc-router-sqs-0.0.0-37c97681-b8ad-4f8d-8c38-01a88ec119ac-1635272338910/node_modules/flanc"
 
 "@humanwhocodes/config-array@^0.5.0":
   version "0.5.0"
@@ -439,11 +439,6 @@
   integrity sha512-uci4Esokrw9qGb9bvhhSVEjd6rkny/dk5PK/Qz4yxKiyppEI+dOPlNrZBahE3i+PoKFYyDxChVXZ/ysS/nrm1Q==
   dependencies:
     "@types/superagent" "*"
-
-"@types/uuid@^8.3.0":
-  version "8.3.1"
-  resolved "https://registry.yarnpkg.com/@types/uuid/-/uuid-8.3.1.tgz#1a32969cf8f0364b3d8c8af9cc3555b7805df14f"
-  integrity sha512-Y2mHTRAbqfFkpjldbkHGY8JIzRN6XqYRliG8/24FcHm2D2PwW24fl5xMRTVGdrb7iMrwCaIEbLWerGIkXuFWVg==
 
 "@types/ws@^7.0.0":
   version "7.4.6"
@@ -1515,8 +1510,6 @@ find-up@^2.0.0, find-up@^2.1.0:
     stoppable "^1.1.0"
     swagger-route-validator "^1.0.2"
     undici "^4.8.1"
-    uuid "^8.3.0"
-    uuid-validate "^0.0.3"
 
 flat-cache@^3.0.4:
   version "3.0.4"
@@ -2988,7 +2981,7 @@ uuid@^3.1.0:
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.4.0.tgz#b23e4358afa8a202fe7a100af1f5f883f02007ee"
   integrity sha512-HjSDRw6gZE5JMggctHBcjVak08+KEVhSIiDzFnT9S9aegmp85S/bReBVTb4QTFaRNptJ9kuYaNhnbNEOkbKb/A==
 
-uuid@^8.0.0, uuid@^8.3.0:
+uuid@^8.0.0:
   version "8.3.2"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-8.3.2.tgz#80d5b5ced271bb9af6c445f21a1a04c606cefbe2"
   integrity sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==
