@@ -1,5 +1,5 @@
 import { modules } from './monitoring';
-import { v4 as uuid } from 'uuid';
+import { randomUUID as uuid } from 'crypto';
 import { ExpressNext, ExpressRequest, ExpressResponse } from 'flanc/express-types';
 
 export function createContext(req: ExpressRequest): _Context {

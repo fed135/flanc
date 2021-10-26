@@ -21,9 +21,7 @@
         "lodash.get": "^4.4.2",
         "luxon": "^1.26.0",
         "stoppable": "^1.1.0",
-        "swagger-route-validator": "^1.0.2",
-        "uuid": "^8.3.0",
-        "uuid-validate": "^0.0.3"
+        "swagger-route-validator": "^1.0.2"
     },
     "devDependencies": {
         "jest": "^27.0.0",

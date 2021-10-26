@@ -7,8 +7,7 @@
     "dependencies": {
         "aws-sdk": "^2.902.0",
         "config": "^3.3.0",
-        "flanc": "file:../../flanc",
-        "uuid": "^8.3.0"
+        "flanc": "file:../../flanc"
     },
     "devDependencies": {
         "typescript": "^4.2.4"

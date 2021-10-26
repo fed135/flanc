@@ -5,7 +5,7 @@ import { InternalError } from 'flanc/errors';
 import Logger from 'flanc/logging';
 import { SQS } from 'aws-sdk';
 import { modules } from 'flanc/monitoring';
-import { v4 as uuid } from 'uuid';
+import { randomUUID as uuid } from 'crypto';
 import { _SqsOptions, _SqsRoute } from '../types';
 import { Route } from 'flanc';
 
