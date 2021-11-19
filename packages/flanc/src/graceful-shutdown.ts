@@ -15,6 +15,7 @@ function shutdown(server: AppServer, onShutdown?: (server: AppServer) => any) {
     server.ready = false;
     if (onShutdown) onShutdown(server);
     setTimeout(server.stop, shutdownRoutine.serverClose);
+    setTimeout(process.exit(0), shutdownRoutine.serverClose + 1000);
   }
 }
 
